@@ -5,33 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lengkapi Profil - KONEVA</title>
     <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">KONEVA</a></div>
-            <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="/#home" class="nav-link">Home</a></li>
-                <li><a href="/#features" class="nav-link">Fitur</a></li>
-                <li><a href="/#pricing" class="nav-link">Harga</a></li>
-                <li>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="/" class="logo-link">
+                        <img src="/logo.png" alt="Koneva Logo" class="nav-logo">
+                        <h2 class="logo-text"><span>Koneva</span></h2>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="/#home">Beranda</a></li>
+                    <li><a href="/#services">Layanan</a></li>
+                    <li><a href="/#contact">Kontak</a></li>
+                </ul>
+                <div class="nav-controls">
                     <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                         @csrf
                         <button type="submit" class="nav-auth-link" style="background:none;border:none;cursor:pointer;">Logout</button>
                     </form>
-                </li>
-            </ul>
-        </nav>
-    </header>
+                    <button id="darkModeToggle" class="dark-mode-btn" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <section class="contact" style="padding-top: 140px; min-height: calc(100vh - 120px);">
-        <div class="container" style="max-width: 620px;">
-            <div class="section-header" style="margin-bottom: 1.4rem;">
+    <main class="auth-shell">
+        <div class="container">
+            <section class="auth-card" style="max-width: 620px; margin: 0 auto;">
+                <div class="section-header center" style="margin-bottom: 1.4rem;">
                 <h2>Lengkapi Profil Google</h2>
                 <p>Satu langkah lagi. Isi nama lengkap dan organisasi/perusahaan (opsional) sebelum masuk dashboard.</p>
-            </div>
+                </div>
 
             @if (session('status'))
                 <div class="auth-status show success">{{ session('status') }}</div>
@@ -45,7 +60,6 @@
                 </div>
             @endif
 
-            <div class="contact-form-container">
                 <form method="POST" action="{{ route('google.complete-profile.store') }}" class="contact-form auth-form" autocomplete="on">
                     @csrf
                     <div class="form-group">
@@ -64,9 +78,17 @@
                     @endif
                     <button type="submit" class="btn btn-primary">Lanjut ke Dashboard</button>
                 </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer compact-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 Koneva. Hak cipta dilindungi.</p>
             </div>
         </div>
-    </section>
+    </footer>
 
     @if (config('services.altcha.enabled'))
         <script async defer src="https://cdn.jsdelivr.net/gh/altcha-org/altcha/dist/altcha.min.js" type="module"></script>
