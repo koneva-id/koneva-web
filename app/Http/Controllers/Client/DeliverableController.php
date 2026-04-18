@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\Deliverable;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -11,11 +12,14 @@ class DeliverableController extends Controller
 {
     public function index(Request $request): View
     {
-        $client = $request->user()->clientProfile;
-
-        if (! $client) {
-            abort(403, 'Client profile not found.');
-        }
+        $user = $request->user();
+        $client = Client::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'company_name' => $user->organization ?: $user->name,
+                'status' => 'active',
+            ]
+        );
 
         $deliverables = Deliverable::query()
             ->where('client_id', $client->id)

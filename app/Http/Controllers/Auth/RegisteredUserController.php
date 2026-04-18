@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Support\AltchaCaptcha;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -52,6 +53,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'client',
         ]);
+
+        Client::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'company_name' => $user->organization ?: $user->name,
+                'status' => 'active',
+            ]
+        );
 
         event(new Registered($user));
 

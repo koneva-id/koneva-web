@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\User;
 use App\Support\AltchaCaptcha;
 use Illuminate\Http\RedirectResponse;
@@ -70,6 +71,16 @@ class GoogleAuthController extends Controller
             ])->save();
         }
 
+        if ($user->role === 'client') {
+            Client::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'company_name' => $user->organization ?: $user->name,
+                    'status' => 'active',
+                ]
+            );
+        }
+
         Auth::login($user, true);
         request()->session()->regenerate();
 
@@ -125,6 +136,16 @@ class GoogleAuthController extends Controller
             'organization' => $validated['organization'] ?? null,
             'google_profile_completed_at' => now(),
         ])->save();
+
+        if ($user->role === 'client') {
+            Client::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'company_name' => $user->organization ?: $user->name,
+                    'status' => 'active',
+                ]
+            );
+        }
 
         return redirect()->route('dashboard')->with('status', 'Google profile completed.');
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
+use App\Models\Client;
 use App\Models\ClientRequest;
 use App\Models\ClientRequestHistory;
 use App\Models\Project;
@@ -16,11 +17,7 @@ class RequestController extends Controller
     public function index(Request $request): View
     {
         $user = $request->user();
-        $client = $user->clientProfile;
-
-        if (! $client) {
-            abort(403, 'Client profile not found.');
-        }
+        $client = $this->resolveClientProfile($request);
 
         $clientRequests = ClientRequest::query()
             ->where('client_id', $client->id)
@@ -48,11 +45,7 @@ class RequestController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $client = $user->clientProfile;
-
-        if (! $client) {
-            return back()->withErrors(['request' => 'Client profile not found.']);
-        }
+        $client = $this->resolveClientProfile($request);
 
         $validated = $request->validate([
             'project_id' => ['nullable', 'integer', 'exists:projects,id'],
@@ -102,5 +95,18 @@ class RequestController extends Controller
         );
 
         return redirect()->route('client.requests.index')->with('status', 'Request submitted successfully.');
+    }
+
+    private function resolveClientProfile(Request $request): Client
+    {
+        $user = $request->user();
+
+        return Client::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'company_name' => $user->organization ?: $user->name,
+                'status' => 'active',
+            ]
+        );
     }
 }
