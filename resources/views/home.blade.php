@@ -1,0 +1,537 @@
+@verbatim
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Koneva</title>
+    <meta name="description" content="Koneva adalah mitra digital terpercaya UMKM Indonesia. Kami menyediakan jasa digital marketing, strategi konten media sosial, dan video company profile profesional untuk pertumbuhan bisnis Anda.">
+    <meta name="keywords" content="digital marketing UMKM, jasa konten media sosial, video company profile, strategi konten Instagram, Koneva, pertumbuhan bisnis digital, UMKM Indonesia">
+    <meta name="author" content="Koneva">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://koneva.vercel.app/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://koneva.vercel.app/">
+    <meta property="og:title" content="Koneva – Jasa Digital Marketing & Video Profile untuk UMKM">
+    <meta property="og:description" content="Kami bantu UMKM Indonesia membangun brand yang standout di media sosial. Mulai dari strategi konten, desain kreatif, hingga video company profile profesional.">
+    <meta property="og:image" content="https://koneva.vercel.app/logo.png">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Koneva">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Koneva – Jasa Digital Marketing & Video Profile untuk UMKM">
+    <meta name="twitter:description" content="Kami bantu UMKM Indonesia membangun brand yang standout di media sosial. Strategi konten, desain kreatif, dan video company profile profesional.">
+    <meta name="twitter:image" content="https://koneva.vercel.app/logo.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Koneva",
+      "description": "Koneva adalah mitra digital terpercaya UMKM Indonesia, menyediakan jasa digital marketing, strategi konten media sosial, dan video company profile profesional.",
+      "url": "https://koneva.vercel.app/",
+      "logo": "https://koneva.vercel.app/logo.png",
+      "image": "https://koneva.vercel.app/logo.png",
+      "telephone": "+6285166194191",
+      "email": "projects.sanand@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ID"
+      },
+      "sameAs": [
+        "https://www.instagram.com/koneva.umkm/",
+        "https://wa.me/6285166194191"
+      ],
+      "priceRange": "$$",
+      "areaServed": "Indonesia",
+      "serviceType": ["Digital Marketing", "Content Strategy", "Video Production", "Social Media Management"]
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="#home" class="logo-link">
+                        <img src="logo.png" alt="Koneva Logo" class="nav-logo">
+                        <h2 class="logo-text"><span>Koneva</span></h2>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" data-lang="nav-home">Beranda</a></li>
+                    <li><a href="#services" data-lang="nav-services">Layanan</a></li>
+                    <li><a href="#about" data-lang="nav-about">Benefit</a></li>
+                    <li><a href="#portfolio" data-lang="nav-portfolio">Portfolio</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+@endverbatim
+                <div class="nav-controls">
+                    @auth
+                    <a href="{{ route('portal') }}" class="nav-auth-link">Portal</a>
+                    @else
+                    <a href="{{ route('login') }}" class="nav-auth-link">Login</a>
+                    @endauth
+@verbatim
+                    <button id="darkModeToggle" class="dark-mode-btn" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="cta-btn" data-lang="cta-btn">Mulai Sekarang</button>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <i class="fas fa-star"></i>
+                        <span data-lang="hero-badge">Mitra Digital UMKM Terpercaya</span>
+                    </div>
+                    <h1 data-lang="hero-title"><span>Koneva</span><br>Teman Bertumbuh UMKM Indonesia</h1>
+                    <p class="description" data-lang="hero-description">Kami bantu Anda membangun brand yang tampil beda dan menarik di media sosial.
+                        Mulai dari riset, strategi konten, produksi kreatif, hingga video profile profesional, semuanya dirancang untuk pertumbuhan bisnis Anda.</p>
+                    <div class="hero-features">
+                        <div class="feature-tag"><i class="fas fa-check-circle"></i> <span data-lang="feature-1">Strategi Konten Kreatif</span></div>
+                        <div class="feature-tag"><i class="fas fa-check-circle"></i> <span data-lang="feature-2">Digitalisasi Usaha</span></div>
+                        <div class="feature-tag"><i class="fas fa-check-circle"></i> <span data-lang="feature-3">Video Profile Professional</span></div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="https://wa.me/6285166194191?text=Halo%20Koneva,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20Anda." class="btn btn-primary" target="_blank">
+                            <span data-lang="btn-start">Konsultasi Gratis</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <img src="img/first.jpeg"
+                             alt="UMKM Business Owner"
+                             class="umkm-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,100 350,0 600,50 C850,100 1050,0 1200,50 L1200,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-lang="services-tag">Layanan Kami</span>
+                <h2 data-lang="services-title">Solusi Digital untuk <span>UMKM</span></h2>
+                <p data-lang="services-desc">Waktunya bisnismu bertumbuh di dunia digital, dapatkan penawaran terbaik dari Koneva dan tentukan pilihan terbaikmu!</p>
+            </div>
+
+            <!-- Service Tabs -->
+            <div class="service-tabs">
+                <button class="tab-btn active" data-tab="digital-marketing">Digital Marketing</button>
+                <button class="tab-btn" data-tab="video-profile">Video Profile</button>
+            </div>
+
+            <!-- Tab Content: Digital Marketing -->
+            <div id="digital-marketing" class="services-grid tab-content active">
+                <!-- Paket A -->
+                <div class="service-card featured">
+                    <div class="service-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Paket A</h3>
+                    <p>Dapatkan performa maksimal untuk mengembangkan dan memperkuat brand Anda di dunia digital.</p>
+
+                    <ul class="service-list">
+                        <li><i class="fas fa-check-circle"></i> <span>10 Desain feeds</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>10 Story content</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>10 Video reels</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Konsep konten</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Caption dan copywriting</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Management bio profile</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>2x Ads setup</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Report berkala</span></li>
+                    </ul>
+
+                    <button class="service-cta pilih-btn" data-package="paket-a">
+                        <span>Pilih Paket</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Paket B -->
+                <div class="service-card featured">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Paket B</h3>
+                    <p>Dapatkan strategi konten yang efektif untuk mengembangkan brand kamu di media sosial.</p>
+
+                    <ul class="service-list">
+                        <li><i class="fas fa-check-circle"></i> <span>8 Desain feeds</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>8 Story content</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>7 Video reels</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Konsep konten</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Caption dan copywriting</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Management bio profile</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>1x Ads setup</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Report berkala</span></li>
+                    </ul>
+
+                    <button class="service-cta pilih-btn" data-package="paket-b">
+                        <span>Pilih Paket</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Paket C -->
+                <div class="service-card featured">
+                    <div class="service-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>Paket C</h3>
+                    <p>Solusi konten praktis untuk mulai membangun brand kamu di media sosial.</p>
+
+                    <ul class="service-list">
+                        <li><i class="fas fa-check-circle"></i> <span>6 Desain feeds</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>6 Story content</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>4 Video reels</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Konsep konten</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Caption dan copywriting</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>GRATIS pembuatan logo baru</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Report berkala</span></li>
+                    </ul>
+
+                    <button class="service-cta pilih-btn" data-package="paket-c">
+                        <span>Pilih Paket</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content: Video Profile -->
+            <div id="video-profile" class="services-grid tab-content">
+                <!-- Video Company Profile -->
+                <div class="service-card featured">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Company Profile</h3>
+                    <p>Tampilkan wajah terbaik bisnis Anda melalui video profil perusahaan yang sinematik dan profesional.</p>
+
+                    <ul class="service-list">
+                        <li><i class="fas fa-check-circle"></i> <span>Professional Shooting</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>High Quality Editing</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Script & Storyboard</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Licensed Music</span></li>
+                    </ul>
+
+                    <button class="service-cta pilih-btn" data-package="video-company-profile">
+                        <span>Pilih</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag" data-lang="about-tag">Benefit</span>
+                <h2 data-lang="about-title">Kenapa Pilih <span>Koneva</span>?</h2>
+                <p data-lang="about-intro">Koneva <span>#TemanBertumbuhUMKM</span> sebagai solusi kreatif untuk pertumbuhan bisnis Anda.</p>
+            </div>
+            <div class="value-cards-grid">
+                <div class="value-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4 data-lang="value-1-title">Solusi Kreatif</h4>
+                    <p data-lang="value-1-desc">Strategi digital sesuai dengan karakter bisnis Anda</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h4 data-lang="value-2-title">Harga Terjangkau</h4>
+                    <p data-lang="value-2-desc">Investasi jangka panjang untuk pertumbuhan bisnis</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4 data-lang="value-3-title">Tumbuhkan Bisnis</h4>
+                    <p data-lang="value-3-desc">Perkuat citra merek dan jangkau lebih banyak pelanggan</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-headset"></i>
+                    <h4 data-lang="value-4-title">Dukungan Penuh</h4>
+                    <p data-lang="value-4-desc">Pendampingan pengembangan digitalisasi usaha</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section: show logos; small section-tag removed to keep symmetry -->
+    <section id="portfolio" class="clients">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-lang="about-tag">Portfolio</span>
+                <h2 data-lang="portfolio-title">Klien <span>Kami</span></h2>
+                <p data-lang="portfolio-desc">Brand yang telah bekerja sama dengan Koneva.</p>
+            </div>
+
+            <div class="logo-ticker">
+                <div class="logo-track">
+                    <button class="client-logo-btn" data-client="bigstamp">
+                        <img src="img/bigstamp.jpg" alt="Bigstamp" class="client-logo">
+                    </button>
+                    <button class="client-logo-btn" data-client="kaosgurita">
+                        <img src="img/kaosgurita.jpeg" alt="Kaos Gurita" class="client-logo">
+                    </button>
+                    <!-- <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 3%3C/text%3E%3C/svg%3E" alt="Logo 3" class="client-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 4%3C/text%3E%3C/svg%3E" alt="Logo 4" class="client-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 5%3C/text%3E%3C/svg%3E" alt="Logo 5" class="client-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 6%3C/text%3E%3C/svg%3E" alt="Logo 6" class="client-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 7%3C/text%3E%3C/svg%3E" alt="Logo 7" class="client-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 8%3C/text%3E%3C/svg%3E" alt="Logo 8" class="client-logo">
+                -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2>Pertanyaan yang Sering <span>Ditanyakan</span></h2>
+                <p>Temukan jawaban atas pertanyaan umum seputar layanan Koneva.</p>
+            </div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Apa itu Koneva?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Koneva adalah mitra digital terpercaya untuk UMKM Indonesia. Kami membantu bisnis Anda tumbuh di dunia digital melalui strategi konten media sosial, desain kreatif, dan video company profile profesional — semua dirancang khusus agar brand Anda standout dan menjangkau lebih banyak pelanggan.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Berapa lama proses kerja sama bisa dimulai?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Proses awal kerjasama dengan kami berlangsung cepat. Setelah konsultasi awal dan kesepakatan paket, tim kami dapat mulai bekerja dalam 2–3 hari kerja.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Apakah ada kontrak jangka panjang yang mengikat?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tidak ada kontrak jangka panjang yang memaksa. Kami beroperasi secara bulanan sehingga Anda bebas melanjutkan atau menghentikan kerja sama kapan saja.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Apakah paket bisa dikustomisasi sesuai kebutuhan bisnis saya?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tentu! Setiap bisnis memiliki kebutuhan yang berbeda. Kami dengan senang hati menyesuaikan paket layanan agar cocok dengan tujuan dan anggaran Anda.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Apa saja metode pembayaran yang tersedia?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kami menerima pembayaran melalui transfer bank, dompet digital (GoPay, OVO, Dana), serta QRIS. Detail lengkap akan disampaikan setelah kesepakatan paket.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Apakah ada garansi hasil dari layanan Koneva?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kami berkomitmen memberikan hasil terbaik dan menyediakan laporan performa rutin. Karena hasil digital bergantung pada banyak faktor, kami tidak menjanjikan angka spesifik — namun kami menjamin proses kerja yang profesional dan transparan sepenuhnya.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Berapa lama waktu yang dibutuhkan untuk membuat konten?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Untuk konten feed reguler, proses desain dan persetujuan biasanya memakan waktu 3–5 hari kerja. Video Company Profile memerlukan waktu 7–14 hari tergantung kompleksitas proyek.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Apakah saya perlu menyiapkan materi sendiri?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tidak perlu khawatir. Tim kami akan membantu riset, penulisan konten, dan desain grafis. Yang Anda butuhkan hanyalah informasi dasar tentang bisnis Anda, sisanya kami yang urus.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-lang="contact-tag">Hubungi Kami</span>
+                <h2 data-lang="contact-title">Konsultasi <span>Gratis</span></h2>
+                <p data-lang="contact-desc">Gratis konsultasi dan sesuaikan kebutuhan bisnismu. Siapkan bisnismu di dunia digital bersama kami!</p>
+            </div>
+            <div class="contact-content">
+
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="formName" name="name" data-lang-placeholder="form-name" placeholder="Nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="formPhone" name="phone" data-lang-placeholder="form-phone" placeholder="Nomor Telepon" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="formCompany" name="company" data-lang-placeholder="form-company" placeholder="Nama Perusahaan (opsional)">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="formMessage" name="message" data-lang-placeholder="form-message" placeholder="Pesan Anda" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-lang="form-submit">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2><span>Koneva</span></h2>
+                    <div class="footer-contact-info">
+                        <p class="footer-address">
+                            <i class="fas fa-map-marker-alt"></i> Jl. Telekomunikasi No.1, Sukapura<br>
+                            Kec. Dayeuhkolot, Kabupaten Bandung, Jawa Barat 40257
+                        </p>
+                        <div class="footer-contact-links">
+                            <a href="https://wa.me/6285692498462" target="_blank"><i class="fab fa-whatsapp"></i> 085692498462</a>
+                            <a href="https://www.instagram.com/koneva.umkm/" target="_blank"><i class="fab fa-instagram"></i> @koneva.umkm</a>
+                            <a href="mailto:projects.sanand@gmail.com"><i class="fas fa-envelope"></i> projects.sanand@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-lang="footer-quick">Tautan Cepat</h4>
+                        <ul>
+                            <li><a href="#home" data-lang="nav-home">Beranda</a></li>
+                            <li><a href="#services" data-lang="nav-services">Layanan</a></li>
+                            <li><a href="#about" data-lang="nav-about">Benefit</a></li>
+                            <li><a href="#portfolio" data-lang="nav-portfolio">Portfolio</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#contact" data-lang="nav-contact">Kontak</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-lang="footer-services-title">Layanan</h4>
+                        <ul>
+                            <li><a href="#services" data-lang="tab-marketing">Digital Marketing</a></li>
+                            <li><a href="#services" data-lang="tab-creative">Video Profile</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-lang="footer-contact-title">Kontak</h4>
+                        <ul>
+                            <li><a href="#contact" data-lang="footer-contact-1">Hubungi Kami</a></li>
+                        </ul>
+                        <div class="footer-social-icons">
+                            <a href="https://wa.me/6285166194191" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/koneva.umkm/" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="mailto:projects.sanand@gmail.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-lang="footer-copyright">© 2026 Koneva. Hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Client Detail Modal -->
+    <div id="clientModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="clientModalTitle">
+        <div class="modal-card client-modal-card">
+            <button class="modal-close" id="clientModalClose" aria-label="Tutup">&times;</button>
+            <div class="client-modal-logo-wrap">
+                <img id="clientModalLogo" src="" alt="" class="client-modal-logo">
+            </div>
+            <h3 id="clientModalTitle" class="modal-title"></h3>
+            <p id="clientModalDesc" class="modal-desc"></p>
+        </div>
+    </div>
+
+    <!-- Package Detail Modal -->
+    <div id="packageModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <button class="modal-close" id="modalClose" aria-label="Tutup">&times;</button>
+            <div class="modal-icon-wrap">
+                <div class="modal-icon"><i id="modalIcon" class="fas fa-rocket"></i></div>
+            </div>
+            <h3 id="modalTitle" class="modal-title"></h3>
+            <p id="modalDesc" class="modal-desc"></p>
+            <ul id="modalFeatures" class="modal-features"></ul>
+            <a id="modalCheckout" class="modal-checkout" href="#" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i>
+                <span>Checkout via WhatsApp</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="script.js?v=2"></script>
+</body>
+</html>
+@endverbatim

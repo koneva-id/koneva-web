@@ -1,0 +1,741 @@
+// ── Package Detail Modal ──
+const packageDetails = {
+    'paket-a': {
+        icon: 'fa-rocket',
+        title: 'Paket A',
+        description: 'Dapatkan performa maksimal untuk mengembangkan dan memperkuat brand Anda di dunia digital. Paket terlengkap ini menawarkan produksi konten intensif meliputi puluhan desain feeds, story, dan video reels. Didukung dengan manajemen profil, copywriting profesional, serta 2x setup ads untuk jangkauan audiens yang maksimal.',
+        features: [
+            '10 Desain feeds',
+            '10 Story content',
+            '10 Video reels',
+            'Konsep konten',
+            'Caption dan copywriting',
+            'Management bio profile',
+            '2x Ads setup',
+            'Report berkala'
+        ],
+        waMessage: 'Permisi, saya ingin mengetahui lebih lanjut tentang Paket A'
+    },
+    'paket-b': {
+        icon: 'fa-chart-bar',
+        title: 'Paket B',
+        description: 'Dapatkan strategi konten yang efektif untuk mengembangkan brand kamu di media sosial. Solusi ideal dengan frekuensi konten yang konsisten di berbagai format (feeds, story, reels). Dilengkapi dengan konsep kreatif, manajemen profil, serta 1x setup ads untuk memperluas jangkauan brand secara terukur.',
+        features: [
+            '8 Desain feeds',
+            '8 Story content',
+            '7 Video reels',
+            'Konsep konten',
+            'Caption dan copywriting',
+            'Management bio profile',
+            '1x Ads setup',
+            'Report berkala'
+        ],
+        waMessage: 'Permisi, saya ingin mengetahui lebih lanjut tentang Paket B'
+    },
+    'paket-c': {
+        icon: 'fa-bullhorn',
+        title: 'Paket C',
+        description: 'Solusi konten praktis untuk mulai membangun brand kamu di media sosial. Nikmati paket esensial dengan pembuatan konten berkualitas (feeds, story, reels) lengkap dengan konsep dan copywriting. Spesial di paket ini, Anda juga mendapatkan ekstra GRATIS pembuatan logo baru untuk memperkuat identitas bisnis Anda.',
+        features: [
+            '6 Desain feeds',
+            '6 Story content',
+            '4 Video reels',
+            'Konsep konten',
+            'Caption dan copywriting',
+            'GRATIS pembuatan logo baru',
+            'Report berkala'
+        ],
+        waMessage: 'Permisi, saya ingin mengetahui lebih lanjut tentang Paket C'
+    },
+    'video-company-profile': {
+        icon: 'fa-video',
+        title: 'Video Company Profile',
+        description: 'Tampilkan wajah terbaik bisnis Anda melalui video profil perusahaan yang sinematik dan profesional. Diproduksi oleh tim kreatif kami dari awal hingga akhir.',
+        features: [
+            'Professional Shooting On-Location',
+            'High Quality Editing & Color Grading',
+            'Script & Storyboard Planning',
+            'Licensed Background Music',
+            'Durasi Video 3–5 Menit',
+            'Revisi hingga 2x'
+        ],
+        waMessage: 'Permisi, saya ingin mengetahui lebih lanjut tentang Video Company Profile'
+    }
+};
+
+// ── Client Logo Modal ──
+const clientDetails = {
+  'bigstamp': {
+    name: 'Bigstamp',
+    logo: 'img/bigstamp.jpg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  },
+  'kaosgurita': {
+    name: 'Kaos Gurita',
+    logo: 'img/kaosgurita.jpeg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // ── Client Logo Modal Setup ──
+  const clientOverlay = document.getElementById('clientModal');
+  const clientClose = document.getElementById('clientModalClose');
+  const clientLogo = document.getElementById('clientModalLogo');
+  const clientTitle = document.getElementById('clientModalTitle');
+  const clientDesc = document.getElementById('clientModalDesc');
+
+  function openClientModal(key) {
+    const client = clientDetails[key];
+    if (!client) return;
+    clientLogo.src = client.logo;
+    clientLogo.alt = client.name;
+    clientTitle.textContent = client.name;
+    clientDesc.textContent = client.description;
+    clientOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeClientModal() {
+    clientOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+    if (clientOverlay && clientClose && clientLogo && clientTitle && clientDesc) {
+        document.querySelectorAll('.client-logo-btn').forEach(btn => {
+            btn.addEventListener('click', () => openClientModal(btn.dataset.client));
+        });
+
+        clientClose.addEventListener('click', closeClientModal);
+        clientOverlay.addEventListener('click', (e) => {
+            if (e.target === clientOverlay) closeClientModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeClientModal();
+        });
+    }
+
+  // ── Package Detail Modal Setup ──
+  const packageOverlay = document.getElementById('packageModal');
+  const packageCloseBtn = document.getElementById('modalClose');
+  const modalIcon = document.getElementById('modalIcon');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalFeatures = document.getElementById('modalFeatures');
+  const modalCheckout = document.getElementById('modalCheckout');
+
+  function openModal(packageKey) {
+    const pkg = packageDetails[packageKey];
+    if (!pkg) return;
+
+    // Set icon
+    modalIcon.className = 'fas ' + pkg.icon;
+
+    // Set content
+    modalTitle.textContent = pkg.title;
+    modalDesc.textContent = pkg.description;
+
+    // Build features list
+    modalFeatures.innerHTML = pkg.features
+      .map(f => `<li><i class="fas fa-check-circle"></i><span>${f}</span></li>`)
+      .join('');
+
+    // Set checkout link
+    const waUrl = 'https://wa.me/6285166194191?text=' + encodeURIComponent(pkg.waMessage);
+    modalCheckout.href = waUrl;
+
+    packageOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    packageOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+    if (packageOverlay && packageCloseBtn && modalIcon && modalTitle && modalDesc && modalFeatures && modalCheckout) {
+        // Open modal on Pilih button click
+        document.querySelectorAll('.pilih-btn').forEach(btn => {
+            btn.addEventListener('click', () => openModal(btn.dataset.package));
+        });
+
+        // Close on X button
+        packageCloseBtn.addEventListener('click', closeModal);
+
+        // Close on overlay click (outside card)
+        packageOverlay.addEventListener('click', (e) => {
+            if (e.target === packageOverlay) closeModal();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    }
+});
+
+// ── Mobile Navigation Toggle ──
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+const navLinks = document.querySelectorAll('.nav-menu a');
+
+if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+        if (document.body.classList.contains('sidebar-layout')) {
+            document.body.classList.toggle('nav-sidebar-open');
+        }
+        });
+}
+
+// Close mobile menu when clicking on a link
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (navMenu) navMenu.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
+        if (document.body.classList.contains('sidebar-layout')) {
+            document.body.classList.remove('nav-sidebar-open');
+        }
+    });
+});
+
+if (document.body.classList.contains('sidebar-layout') && navMenu && hamburger) {
+    document.addEventListener('click', (event) => {
+        if (!document.body.classList.contains('nav-sidebar-open')) return;
+
+        const clickedInsideMenu = navMenu.contains(event.target);
+        const clickedBurger = hamburger.contains(event.target);
+
+        if (!clickedInsideMenu && !clickedBurger) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.classList.remove('nav-sidebar-open');
+        }
+    });
+}
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('darkModeToggle');
+const body = document.body;
+
+// Check for saved dark mode preference
+const isDarkMode = localStorage.getItem('darkMode') === 'true';
+if (isDarkMode) {
+    body.classList.add('dark-mode');
+}
+
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const darkModeEnabled = body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', darkModeEnabled);
+
+        // Add a smooth transition effect
+        darkModeToggle.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            darkModeToggle.style.transform = 'rotate(0deg)';
+        }, 300);
+    });
+}
+
+// Language Toggle (only if element exists)
+const languageToggle = document.getElementById('languageToggle');
+const langText = document.querySelector('.lang-text');
+let currentLang = localStorage.getItem('language') || 'id'; // Default to Indonesian
+
+if (langText) {
+    // Set initial language
+    langText.textContent = currentLang === 'id' ? 'ID' : 'EN';
+    translatePage(currentLang);
+}
+
+if (languageToggle && langText) {
+    languageToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'id' : 'en';
+        langText.textContent = currentLang === 'en' ? 'EN' : 'ID';
+        localStorage.setItem('language', currentLang);
+
+        // Add animation
+        languageToggle.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            languageToggle.style.transform = 'scale(1)';
+        }, 200);
+
+        // Translate content
+        translatePage(currentLang);
+    });
+}
+
+// Translation function
+function translatePage(lang) {
+    // Update document title
+    if (lang === 'id') {
+        document.title = 'Koneva - Tingkatkan Kehadiran Digital Anda';
+    } else {
+        document.title = 'Koneva - Elevate Your Digital Presence';
+    }
+
+    // Get all elements with data-lang attribute
+    const elementsToTranslate = document.querySelectorAll('[data-lang]');
+
+    elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-lang');
+        if (translations[lang] && translations[lang][key]) {
+            // Check if element is an input or textarea (for placeholders)
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = translations[lang][key];
+            } else {
+                // For regular elements, update innerHTML to preserve <span> tags
+                element.innerHTML = translations[lang][key];
+            }
+        }
+    });
+
+    // Handle placeholders with data-lang-placeholder attribute
+    const placeholderElements = document.querySelectorAll('[data-lang-placeholder]');
+    placeholderElements.forEach(element => {
+        const key = element.getAttribute('data-lang-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+            element.placeholder = translations[lang][key];
+        }
+    });
+}
+
+// Services Tabs
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-content');
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const targetTab = button.getAttribute('data-tab');
+
+        // Remove active class from all buttons and panels
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabPanels.forEach(panel => panel.classList.remove('active'));
+
+        // Add active class to clicked button and corresponding panel
+        button.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+    });
+});
+
+// Smooth scrolling for internal anchor links only
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#' || !href.startsWith('#')) return;
+        const target = document.querySelector(href);
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Navbar scroll effect
+const navbar = document.querySelector('.navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if (navbar) {
+        if (currentScroll > 100) {
+            navbar.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.15)';
+        } else {
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        }
+    }
+
+    lastScroll = currentScroll;
+});
+
+// Testimonials Slider (only if testimonials exist)
+const testimonialCards = document.querySelectorAll('.testimonial-card');
+const dots = document.querySelectorAll('.dot');
+let currentSlide = 0;
+
+if (testimonialCards.length > 0 && dots.length > 0) {
+    function showSlide(index) {
+        testimonialCards.forEach(card => card.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        testimonialCards[index].classList.add('active');
+        dots[index].classList.add('active');
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+        });
+    });
+
+    // Auto-rotate testimonials
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % testimonialCards.length;
+        showSlide(currentSlide);
+    }, 5000);
+}
+
+// Scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Animate portfolio items (only if present)
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+if (portfolioItems.length > 0) {
+    portfolioItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
+    });
+}
+
+// Animate feature items
+const featureItems = document.querySelectorAll('.feature-item');
+featureItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-30px)';
+    item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+    observer.observe(item);
+});
+
+// Add parallax effect to hero section
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const heroVisual = document.querySelector('.hero-visual');
+
+    if (heroVisual && scrolled < 1000) {
+        heroVisual.style.transform = `translateY(${scrolled * 0.2}px)`;
+    }
+});
+
+// Counter animation for stats in mockup
+const mockupStats = document.querySelectorAll('.mockup-stat .stat-info h4');
+const mockupSection = document.querySelector('.hero-mockup');
+
+const animateCounter = (element) => {
+    const text = element.textContent;
+    const hasPercent = text.includes('%');
+    const hasPlus = text.includes('+');
+    const target = parseInt(text);
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+            let displayValue = Math.floor(current);
+            if (hasPercent) displayValue += '%';
+            if (hasPlus) displayValue += '+';
+            element.textContent = displayValue;
+            requestAnimationFrame(updateCounter);
+        } else {
+            let displayValue = target;
+            if (hasPercent) displayValue += '%';
+            if (hasPlus) displayValue += '+';
+            element.textContent = displayValue;
+        }
+    };
+
+    updateCounter();
+};
+
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            mockupStats.forEach(stat => animateCounter(stat));
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+if (mockupSection) {
+    statsObserver.observe(mockupSection);
+}
+
+// Animate milestones on scroll
+const milestones = document.querySelectorAll('.milestone');
+milestones.forEach((milestone, index) => {
+    milestone.style.opacity = '0';
+    milestone.style.transform = 'translateX(-30px)';
+    milestone.style.transition = `all 0.6s ease ${index * 0.15}s`;
+    observer.observe(milestone);
+});
+
+// Animate value cards
+const valueCards = document.querySelectorAll('.value-card');
+valueCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.9)';
+    card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+    observer.observe(card);
+});
+
+// CTA buttons
+const ctaButtons = document.querySelectorAll('.cta-btn');
+ctaButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        if (!button.closest('form')) {
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+                e.preventDefault();
+                contactSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+});
+
+// Add active class to navigation items on scroll
+const sections = document.querySelectorAll('section[id]');
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(section => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 100;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+});
+
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    }, 100);
+});
+
+// Testimonial Slider
+let slideIndex = 1;
+
+// Make functions global
+window.moveSlide = function(n) {
+    slideIndex += n;
+    showSlide(slideIndex);
+}
+
+window.goToSlide = function(n) {
+    slideIndex = n;
+    showSlide(slideIndex);
+}
+
+showSlide(slideIndex);
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slides.length === 0) return; // Guard clause
+
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+
+    slides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+
+    if (dots.length > 0) {
+        dots.forEach(dot => {
+            dot.classList.remove('active');
+        });
+        if (dots[slideIndex - 1]) dots[slideIndex - 1].classList.add('active');
+    }
+
+    if (slides[slideIndex - 1]) slides[slideIndex - 1].classList.add('active');
+}
+
+// Auto play testimonial slider
+setInterval(() => {
+    moveSlide(1);
+}, 5000);
+
+// Social links hover effect
+const socialLinks = document.querySelectorAll('.social-links a');
+socialLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px) rotate(360deg)';
+    });
+
+    link.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) rotate(0deg)';
+    });
+});
+
+
+
+// Interactive Services
+// Interactive Services - Robust Implementation
+function toggleService(btn) {
+    const details = btn.nextElementSibling;
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+    // Toggle current
+    btn.setAttribute('aria-expanded', !isExpanded);
+
+    // Update button visual
+    const icon = btn.querySelector('i');
+    const text = btn.querySelector('span');
+
+    if (!isExpanded) {
+        // Expanding
+        btn.classList.add('active');
+        if(icon) {
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        }
+        if(text) text.textContent = 'Tutup';
+
+        details.hidden = false;
+        details.style.display = 'block';
+
+        // Small timeout to allow display transform to happen
+        requestAnimationFrame(() => {
+            details.classList.add('active');
+            details.style.opacity = '1';
+            details.style.transform = 'translateY(0)';
+        });
+    } else {
+        // Collapsing
+        btn.classList.remove('active');
+        if(icon) {
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+        if(text) text.textContent = 'Lihat Paket';
+
+        details.classList.remove('active');
+        details.style.opacity = '0';
+        details.style.transform = 'translateY(-20px)';
+
+        // Wait for animation to finish before hiding
+        setTimeout(() => {
+            details.hidden = true;
+            details.style.display = 'none';
+        }, 300);
+    }
+}
+
+// Attach event listeners when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Client Logo Loop Logic
+    const logoTrack = document.querySelector('.logo-track');
+    if (logoTrack) {
+        const logos = Array.from(logoTrack.children);
+        // Only loop if more than 5 logos
+        if (logos.length > 5) {
+            // Clone logos for seamless loop
+            logos.forEach(logo => {
+                const clone = logo.cloneNode(true);
+                logoTrack.appendChild(clone);
+            });
+            logoTrack.classList.add('animate');
+        }
+    }
+
+    const toggleServiceBtns = document.querySelectorAll('.toggle-service-btn');
+
+    toggleServiceBtns.forEach(btn => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            toggleService(btn);
+        };
+    });
+
+    // WhatsApp Form Submission
+    const contactForm = document.getElementById("contactForm");
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Get form data safely
+            const formData = new FormData(contactForm);
+
+            const name = (formData.get("name") || "").trim();
+            const phone = (formData.get("phone") || "").trim();
+            const company = (formData.get("company") || "").trim();
+            const message = (formData.get("message") || "").trim();
+
+            // Construct WhatsApp message (dedented to avoid extra leading whitespace)
+            const waText = `Halo Koneva, saya ingin berkonsultasi.\n\n*Nama:* ${name}\n*No. HP:* ${phone}\n*Perusahaan:* ${company}\n*Pesan:* ${message}`;
+
+            // Encode message
+            const encodedText = encodeURIComponent(waText);
+
+            // IMPORTANT: remove spaces, dashes, or symbols from phone number
+            const waNumber = "6285166194191";
+
+            // Final WhatsApp URL
+            const waUrl = `https://wa.me/${waNumber}?text=${encodedText}`;
+
+            // Open WhatsApp
+            window.open(waUrl, "_blank", "noopener,noreferrer");
+
+            // Reset form
+            contactForm.reset();
+        });
+    }
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        if (question && answer) {
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+
+                // Close all open items
+                faqItems.forEach(i => {
+                    i.classList.remove('open');
+                    const iAnswer = i.querySelector('.faq-answer');
+                    const iQuestion = i.querySelector('.faq-question');
+                    if (iAnswer) iAnswer.classList.remove('open');
+                    if (iQuestion) iQuestion.setAttribute('aria-expanded', 'false');
+                });
+
+                // If it was closed, open it
+                if (!isOpen) {
+                    item.classList.add('open');
+                    answer.classList.add('open');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            });
+        }
+    });
+});
+
