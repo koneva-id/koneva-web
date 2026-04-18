@@ -2554,19 +2554,30 @@ body.dark-mode .faq-answer p {
 @media (max-width: 968px) {
   .nav-menu {
     position: fixed;
-    left: -100%;
+    left: 0;
     top: 70px;
     flex-direction: column;
     background: var(--white);
     width: 100%;
     text-align: center;
-    transition: 0.3s;
+    transform: translateX(-102%);
+    transition: transform 0.3s ease;
     box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
     padding: 2rem 0;
+    z-index: 1200;
   }
 
   .nav-menu.active {
-    left: 0;
+    transform: translateX(0);
+  }
+
+  body.dark-mode .nav-menu {
+    background: #0f172a;
+    box-shadow: 0 14px 30px rgba(2, 6, 23, 0.55);
+  }
+
+  body.dark-mode .nav-menu a {
+    color: #ffffff;
   }
 
   .hamburger {

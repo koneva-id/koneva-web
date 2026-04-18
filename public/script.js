@@ -180,12 +180,22 @@ const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-menu a');
 
 if (hamburger && navMenu) {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+
         hamburger.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
         if (document.body.classList.contains('sidebar-layout')) {
             document.body.classList.toggle('nav-sidebar-open');
         }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
         });
 }
 
