@@ -170,7 +170,7 @@
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3>Paket A</h3>
-                    <p>Dapatkan performa maksimal untuk mengembangkan dan memperkuat brand Anda di dunia digital.</p>
+                    <p>Dapatkan performa maksimal untuk mengembangkan dan memperkuat brand Anda di dunia digital</p>
 
                     <ul class="service-list">
                         <li><i class="fas fa-check-circle"></i> <span>10 Desain feeds</span></li>
