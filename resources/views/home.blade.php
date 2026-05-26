@@ -77,6 +77,13 @@
                     <li><a href="#about" data-lang="nav-about">Benefit</a></li>
                     <li><a href="#portfolio" data-lang="nav-portfolio">Portfolio</a></li>
                     <li><a href="#faq">FAQ</a></li>
+@endverbatim
+                    @auth
+                    <li class="nav-menu-auth-item"><a href="{{ route('portal') }}" class="nav-auth-link">Portal</a></li>
+                    @else
+                    <li class="nav-menu-auth-item"><a href="{{ route('login') }}" class="nav-auth-link">Login</a></li>
+                    @endauth
+@verbatim
                 </ul>
 @endverbatim
                 <div class="nav-controls">

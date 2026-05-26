@@ -527,6 +527,11 @@ body.dark-mode .dark-mode-btn i::before {
   content: "\f185"; /* sun icon */
 }
 
+/* Login link shown only in mobile hamburger menu */
+.nav-menu-auth-item {
+  display: none;
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -2582,6 +2587,19 @@ body.dark-mode .faq-answer p {
 
   .hamburger {
     display: flex;
+  }
+
+  /* Show Login/Portal in mobile hamburger dropdown */
+  .nav-menu-auth-item {
+    display: block;
+    border-top: 1px solid rgba(99, 102, 241, 0.15);
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .nav-menu-auth-item a {
+    display: inline-block;
+    margin: 0 auto;
   }
 
   .cta-btn {
