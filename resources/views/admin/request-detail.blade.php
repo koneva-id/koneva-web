@@ -62,6 +62,24 @@
                     <h3>Original Request</h3>
                     <p><strong>Submitted by:</strong> {{ $clientRequest->submitter->name }} ({{ $clientRequest->submitter->email }})</p>
                     <p><strong>Current status:</strong> {{ $clientRequest->status }}</p>
+                    <div style="display:flex; align-items:center; gap:0.75rem; margin: 0.6rem 0 0.8rem;">
+                        <strong>Date:</strong>
+                        <form method="POST" action="{{ route('admin.requests.update-date', $clientRequest) }}"
+                              style="display:flex; align-items:center; gap:0.5rem; margin:0;">
+                            @csrf
+                            @method('PATCH')
+                            <input type="date"
+                                   name="date"
+                                   id="requestDateInput"
+                                   value="{{ $clientRequest->created_at->toDateString() }}"
+                                   max="{{ now()->toDateString() }}"
+                                   style="padding:0.3rem 0.6rem; border-radius:8px; border:1px solid rgba(99,102,241,0.35);
+                                          background:transparent; color:inherit; font-size:0.9rem; cursor:pointer;">
+                            <button type="submit" class="nav-auth-link" style="font-size:0.85rem; padding:0.3rem 0.7rem;">
+                                <i class="fas fa-check"></i> Save
+                            </button>
+                        </form>
+                    </div>
                     <p style="white-space: pre-wrap;">{{ $clientRequest->message }}</p>
                 </div>
 

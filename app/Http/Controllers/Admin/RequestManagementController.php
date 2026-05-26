@@ -86,4 +86,31 @@ class RequestManagementController extends Controller
 
         return redirect()->route('admin.requests.show', $clientRequest)->with('status', 'Request updated successfully.');
     }
+
+    public function updateDate(Request $request, ClientRequest $clientRequest): RedirectResponse
+    {
+        $validated = $request->validate([
+            'date' => ['required', 'date', 'before_or_equal:today'],
+        ]);
+
+        $newDate = \Carbon\Carbon::parse($validated['date'])->startOfDay();
+
+        // Preserve original time-of-day if same day, otherwise set to start of new day
+        $clientRequest->timestamps = false;
+        $clientRequest->created_at = $newDate;
+        $clientRequest->save();
+        $clientRequest->timestamps = true;
+
+        AuditLog::record(
+            $request->user(),
+            'admin.request_date_updated',
+            'client_requests',
+            $clientRequest->id,
+            'Admin updated request date.',
+            ['new_date' => $newDate->toDateString()],
+            $request
+        );
+
+        return redirect()->route('admin.requests.show', $clientRequest)->with('status', 'Date updated successfully.');
+    }
 }
