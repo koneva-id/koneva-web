@@ -40,7 +40,7 @@
                 <div class="section-header center">
                     <span class="section-tag">Portal Koneva</span>
                     <h1>Buat Akun <span>Baru</span></h1>
-                    <p>Daftarkan akun untuk mengakses portal Koneva.</p>
+                    <p>Daftar akun untuk mengakses portal Koneva.</p>
                 </div>
 
                 @if ($errors->any())
