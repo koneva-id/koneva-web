@@ -18,6 +18,7 @@
                     </a>
                 </div>
                 <ul class="nav-menu">
+                    <li><a href="{{ url('/') }}"><i class="fas fa-home" style="margin-right:0.3rem;"></i>Home</a></li>
                     <li><a href="{{ route('client.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('client.requests.index') }}" class="active">Requests</a></li>
                     <li><a href="{{ route('client.deliverables.index') }}">Deliverables</a></li>

@@ -88,7 +88,7 @@ class GoogleAuthController extends Controller
             return redirect()->route('google.complete-profile');
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard', absolute: false))->with('login_success', 'Berhasil Masuk ke Akun!');
     }
 
     public function showCompleteProfile(Request $request): View|RedirectResponse
@@ -147,7 +147,7 @@ class GoogleAuthController extends Controller
             );
         }
 
-        return redirect()->route('dashboard')->with('status', 'Google profile completed.');
+        return redirect()->route('dashboard')->with('login_success', 'Berhasil Masuk ke Akun!');
     }
 
     private function hasGoogleConfig(): bool

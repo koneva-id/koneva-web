@@ -17,11 +17,7 @@
                         <h2 class="logo-text"><span>Koneva</span></h2>
                     </a>
                 </div>
-                <ul class="nav-menu">
-                    <li><a href="/#home">Beranda</a></li>
-                    <li><a href="/#services">Layanan</a></li>
-                    <li><a href="/#contact">Kontak</a></li>
-                </ul>
+                <ul class="nav-menu"></ul>
                 <div class="nav-controls">
                     <a href="{{ route('login') }}" class="nav-auth-link">Login</a>
                     <a href="{{ route('register') }}" class="nav-auth-link">Register</a>

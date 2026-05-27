@@ -18,6 +18,7 @@
                     </a>
                 </div>
                 <ul class="nav-menu">
+                    <li><a href="{{ url('/') }}"><i class="fas fa-home" style="margin-right:0.3rem;"></i>Home</a></li>
                     <li><a href="{{ route('client.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('client.requests.index') }}">Requests</a></li>
                     <li><a href="{{ route('client.deliverables.index') }}">Deliverables</a></li>
@@ -44,6 +45,11 @@
     <main class="portal-shell">
         <section class="portal-section">
             <div class="container">
+                @if (session('login_success'))
+                    <div class="auth-status show" style="text-align:center; font-size:1.05rem; padding: 0.75rem 1rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; margin-bottom: 1.5rem;">
+                        <i class="fas fa-check-circle" style="margin-right:0.5rem;"></i>{{ session('login_success') }}
+                    </div>
+                @endif
                 <div class="section-header">
                     <span class="section-tag">Client Portal</span>
                     <h1>Halo, <span>{{ auth()->user()->name }}</span></h1>
