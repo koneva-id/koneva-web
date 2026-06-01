@@ -42,7 +42,7 @@
       "url": "https://koneva.vercel.app/",
       "logo": "https://koneva.vercel.app/logo.png",
       "image": "https://koneva.vercel.app/logo.png",
-      "telephone": "+6285166194191",
+      "telephone": "+6285692498462",
       "email": "projects.sanand@gmail.com",
       "address": {
         "@type": "PostalAddress",
@@ -50,7 +50,7 @@
       },
       "sameAs": [
         "https://www.instagram.com/koneva.umkm/",
-        "https://wa.me/6285166194191"
+        "https://wa.me/6285692498462"
       ],
       "priceRange": "$$",
       "areaServed": "Indonesia",
@@ -125,7 +125,7 @@
                         <div class="feature-tag"><i class="fas fa-check-circle"></i> <span data-lang="feature-3">Video Profile Professional</span></div>
                     </div>
                     <div class="hero-buttons">
-                        <a href="https://wa.me/6285166194191?text=Halo%20Koneva,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20Anda." class="btn btn-primary" target="_blank">
+                        <a href="https://wa.me/6285692498462?text=Halo%20Koneva,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20Anda." class="btn btn-primary" target="_blank">
                             <span data-lang="btn-start">Konsultasi Gratis</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -441,7 +441,7 @@
                         <input type="tel" id="formPhone" name="phone" data-lang-placeholder="form-phone" placeholder="Nomor Telepon" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="formCompany" name="company" data-lang-placeholder="form-company" placeholder="Nama Perusahaan (opsional)">
+                        <input type="text" id="formCompany" name="company" data-lang-placeholder="form-company" placeholder="Nama Usaha">
                     </div>
                     <div class="form-group">
                         <textarea id="formMessage" name="message" data-lang-placeholder="form-message" placeholder="Pesan Anda" rows="5" required></textarea>
@@ -495,7 +495,7 @@
                             <li><a href="#contact" data-lang="footer-contact-1">Hubungi Kami</a></li>
                         </ul>
                         <div class="footer-social-icons">
-                            <a href="https://wa.me/6285166194191" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://wa.me/6285692498462" target="_blank"><i class="fab fa-whatsapp"></i></a>
                             <a href="https://www.instagram.com/koneva.umkm/" target="_blank"><i class="fab fa-instagram"></i></a>
                             <a href="mailto:projects.sanand@gmail.com"><i class="fas fa-envelope"></i></a>
                         </div>

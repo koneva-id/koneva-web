@@ -65,14 +65,7 @@
                         <div class="form-group">
                             <input type="text" name="title" placeholder="Judul Request" value="{{ old('title') }}" required>
                         </div>
-                        <div class="form-group">
-                            <select name="project_id">
-                                <option value="">Pilih Project (opsional)</option>
-                                @foreach ($projects as $project)
-                                    <option value="{{ $project->id }}" @selected(old('project_id') == $project->id)>{{ $project->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+
                         <div class="form-group">
                             <textarea name="message" rows="5" placeholder="Deskripsikan kebutuhan Anda" required>{{ old('message') }}</textarea>
                         </div>

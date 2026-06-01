@@ -19,8 +19,6 @@
                 </div>
                 <ul class="nav-menu"></ul>
                 <div class="nav-controls">
-                    <a href="{{ route('login') }}" class="nav-auth-link">Login</a>
-                    <a href="{{ route('register') }}" class="nav-auth-link">Register</a>
                     <button id="darkModeToggle" class="dark-mode-btn" aria-label="Toggle dark mode">
                         <i class="fas fa-moon"></i>
                     </button>

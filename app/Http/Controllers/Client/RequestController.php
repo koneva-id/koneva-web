@@ -82,6 +82,7 @@ class RequestController extends Controller
             'old_status' => null,
             'new_status' => 'submitted',
             'client_note' => 'Initial request submitted by client.',
+            'triage_date' => now()->toDateString(),
         ]);
 
         AuditLog::record(

@@ -38,9 +38,15 @@ class RequestManagementController extends Controller
             'histories.actor:id,name,email',
         ]);
 
+        $projects = \App\Models\Project::query()
+            ->where('client_id', $clientRequest->client_id)
+            ->orderBy('title')
+            ->get(['id', 'title']);
+
         return view('admin.request-detail', [
             'clientRequest' => $clientRequest,
             'statuses' => ['submitted', 'in_review', 'in_progress', 'waiting_client', 'completed', 'rejected'],
+            'projects' => $projects,
         ]);
     }
 
@@ -48,14 +54,17 @@ class RequestManagementController extends Controller
     {
         $validated = $request->validate([
             'status' => ['required', Rule::in(['submitted', 'in_review', 'in_progress', 'waiting_client', 'completed', 'rejected'])],
+            'project_id' => ['nullable', 'integer', Rule::exists('projects', 'id')->where('client_id', $clientRequest->client_id)],
             'internal_note' => ['nullable', 'string', 'max:5000'],
             'client_note' => ['nullable', 'string', 'max:5000'],
+            'triage_date' => ['nullable', 'date', 'before_or_equal:today'],
         ]);
 
         $oldStatus = $clientRequest->status;
 
         $clientRequest->update([
             'status' => $validated['status'],
+            'project_id' => $validated['project_id'] ?? null,
             'admin_note' => $validated['internal_note'] ?? $clientRequest->admin_note,
         ]);
 
@@ -67,6 +76,7 @@ class RequestManagementController extends Controller
             'new_status' => $clientRequest->status,
             'internal_note' => $validated['internal_note'] ?? null,
             'client_note' => $validated['client_note'] ?? null,
+            'triage_date' => ! empty($validated['triage_date']) ? $validated['triage_date'] : null,
         ]);
 
         AuditLog::record(
@@ -85,6 +95,24 @@ class RequestManagementController extends Controller
         );
 
         return redirect()->route('admin.requests.show', $clientRequest)->with('status', 'Request updated successfully.');
+    }
+
+    public function destroyHistory(ClientRequest $clientRequest, ClientRequestHistory $history): RedirectResponse
+    {
+        $historyId = $history->id;
+        $history->delete();
+
+        AuditLog::record(
+            request()->user(),
+            'admin.request_history_deleted',
+            'client_request_histories',
+            $historyId,
+            'Admin deleted client request history entry.',
+            ['client_request_id' => $clientRequest->id],
+            request()
+        );
+
+        return redirect()->route('admin.requests.show', $clientRequest)->with('status', 'History entry deleted successfully.');
     }
 
     public function updateDate(Request $request, ClientRequest $clientRequest): RedirectResponse

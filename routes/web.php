@@ -83,6 +83,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/requests/{clientRequest}', [RequestManagementController::class, 'show'])->name('requests.show');
     Route::patch('/requests/{clientRequest}', [RequestManagementController::class, 'update'])->name('requests.update');
     Route::patch('/requests/{clientRequest}/date', [RequestManagementController::class, 'updateDate'])->name('requests.update-date');
+    Route::delete('/requests/{clientRequest}/history/{history}', [RequestManagementController::class, 'destroyHistory'])->name('requests.destroy-history');
 
     Route::get('/deliverables', [DeliverableManagementController::class, 'index'])->name('deliverables.index');
     Route::post('/deliverables', [DeliverableManagementController::class, 'store'])->name('deliverables.store');

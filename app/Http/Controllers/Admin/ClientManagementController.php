@@ -19,29 +19,37 @@ class ClientManagementController extends Controller
             ->latest()
             ->get();
 
-        $clientUsers = User::query()
-            ->where('role', 'client')
-            ->whereDoesntHave('clientProfile')
-            ->orderBy('name')
-            ->get(['id', 'name', 'email']);
-
         return view('admin.clients', [
             'clients' => $clients,
-            'clientUsers' => $clientUsers,
         ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'user_id' => ['required', 'integer', 'exists:users,id', 'unique:clients,user_id'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8'],
             'company_name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:40'],
             'industry' => ['nullable', 'string', 'max:120'],
             'status' => ['required', 'in:active,inactive'],
         ]);
 
-        $client = Client::create($validated);
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+            'role' => 'client',
+        ]);
+
+        $client = Client::create([
+            'user_id' => $user->id,
+            'company_name' => $validated['company_name'],
+            'phone' => $validated['phone'],
+            'industry' => $validated['industry'],
+            'status' => $validated['status'],
+        ]);
 
         AuditLog::record(
             $request->user(),

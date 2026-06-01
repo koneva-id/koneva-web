@@ -49,6 +49,10 @@
                     <div class="auth-status show" style="text-align:center; font-size:1.05rem; padding: 0.75rem 1rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; margin-bottom: 1.5rem;">
                         <i class="fas fa-check-circle" style="margin-right:0.5rem;"></i>{{ session('login_success') }}
                     </div>
+                    <div class="auth-status show" style="text-align:center; font-size:0.98rem; padding: 0.65rem 1rem; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 12px; margin-bottom: 1.5rem; color: var(--text-light);">
+                        <i class="fas fa-info-circle" style="margin-right:0.5rem; color: #6366f1;"></i>
+                        Silakan pergi ke halaman <a href="{{ url('/') }}" style="color:#6366f1; font-weight:600;">Home</a> untuk memesan paket layanan.
+                    </div>
                 @endif
                 <div class="section-header">
                     <span class="section-tag">Client Portal</span>

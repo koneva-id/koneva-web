@@ -19,6 +19,8 @@
                 </div>
                 <ul class="nav-menu">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('admin.clients.index') }}">Clients</a></li>
+                    <li><a href="{{ route('admin.projects.index') }}">Projects</a></li>
                     <li><a href="{{ route('admin.requests.index') }}" class="active">Requests</a></li>
                     <li><a href="{{ route('admin.deliverables.index') }}">Deliverables</a></li>
                     <li><a href="{{ route('profile.settings') }}">Profile</a></li>
@@ -96,6 +98,22 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <select name="project_id">
+                                <option value="">Pilih Project (optional)</option>
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project->id }}" @selected($clientRequest->project_id === $project->id)>{{ $project->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size:0.85rem; color:var(--text-light); margin-bottom:0.3rem; display:block;">Tanggal Update</label>
+                            <input type="date"
+                                   name="triage_date"
+                                   value="{{ now()->toDateString() }}"
+                                   max="{{ now()->toDateString() }}"
+                                   style="padding:0.5rem 0.75rem; border-radius:8px; border:1px solid rgba(99,102,241,0.35); background:transparent; color:inherit; font-size:0.9rem; width:100%; box-sizing:border-box;">
+                        </div>
+                        <div class="form-group">
                             <textarea name="internal_note" rows="4" placeholder="Internal note (admin only)"></textarea>
                         </div>
                         <div class="form-group">
@@ -113,21 +131,31 @@
                         <table style="width:100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
-                                    <th style="text-align:left; padding:0.6rem;">Time</th>
+                                    <th style="text-align:left; padding:0.6rem;">Tanggal</th>
                                     <th style="text-align:left; padding:0.6rem;">Actor</th>
                                     <th style="text-align:left; padding:0.6rem;">Status</th>
                                     <th style="text-align:left; padding:0.6rem;">Internal Note</th>
                                     <th style="text-align:left; padding:0.6rem;">Client Note</th>
+                                    <th style="text-align:left; padding:0.6rem; width:50px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($clientRequest->histories as $entry)
                                     <tr>
-                                        <td style="padding:0.6rem;">{{ $entry->created_at->format('Y-m-d H:i') }}</td>
+                                        <td style="padding:0.6rem;">{{ $entry->triage_date ? \Carbon\Carbon::parse($entry->triage_date)->format('Y-m-d') : $entry->created_at->format('Y-m-d H:i') }}</td>
                                         <td style="padding:0.6rem;">{{ $entry->actor?->email ?? 'system' }}</td>
                                         <td style="padding:0.6rem;">{{ $entry->old_status ?? '-' }} -> {{ $entry->new_status ?? '-' }}</td>
                                         <td style="padding:0.6rem;">{{ $entry->internal_note ?? '-' }}</td>
                                         <td style="padding:0.6rem;">{{ $entry->client_note ?? '-' }}</td>
+                                        <td style="padding:0.6rem; text-align:center;">
+                                            <form method="POST" action="{{ route('admin.requests.destroy-history', [$clientRequest, $entry]) }}" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus history ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" style="background:transparent; border:none; color:#ef4444; cursor:pointer;" title="Delete History">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -18,6 +18,7 @@ class ClientRequestHistory extends Model
         'new_status',
         'internal_note',
         'client_note',
+        'triage_date',
     ];
 
     public function request(): BelongsTo

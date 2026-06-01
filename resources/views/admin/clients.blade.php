@@ -60,16 +60,18 @@
                     <div class="auth-status show error">{{ $errors->first() }}</div>
                 @endif
 
+
                 <div class="portal-card" style="margin-bottom: 1rem;">
                     <form method="POST" action="{{ route('admin.clients.store') }}" class="contact-form auth-form">
                         @csrf
                         <div class="form-group">
-                            <select name="user_id" required>
-                                <option value="">Pilih User Client</option>
-                                @foreach ($clientUsers as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="name" placeholder="Client Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Client Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" placeholder="Password" required>
                         </div>
                         <div class="form-group">
                             <input type="text" name="company_name" placeholder="Company Name" required>

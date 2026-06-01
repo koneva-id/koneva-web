@@ -18,8 +18,21 @@
                     </a>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="{{ route('portal') }}">Portal</a></li>
-                    <li><a href="{{ route('profile.settings') }}" class="active">Profile Settings</a></li>
+                    @auth
+                        @if(auth()->user()->role === 'admin' || auth()->user()->role === 'superadmin')
+                            <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ route('admin.clients.index') }}">Clients</a></li>
+                            <li><a href="{{ route('admin.projects.index') }}">Projects</a></li>
+                            <li><a href="{{ route('admin.requests.index') }}">Requests</a></li>
+                            <li><a href="{{ route('admin.deliverables.index') }}">Deliverables</a></li>
+                        @else
+                            <li><a href="{{ url('/') }}"><i class="fas fa-home" style="margin-right:0.3rem;"></i>Home</a></li>
+                            <li><a href="{{ route('client.dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ route('client.requests.index') }}">Requests</a></li>
+                            <li><a href="{{ route('client.deliverables.index') }}">Deliverables</a></li>
+                        @endif
+                    @endauth
+                    <li><a href="{{ route('profile.settings') }}" class="active">Profile</a></li>
                 </ul>
                 <div class="nav-controls">
                     <button class="hamburger" aria-label="Toggle menu">

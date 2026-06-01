@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .join('');
 
     // Set checkout link
-    const waUrl = 'https://wa.me/6285166194191?text=' + encodeURIComponent(pkg.waMessage);
+    const waUrl = 'https://wa.me/6285692498462?text=' + encodeURIComponent(pkg.waMessage);
     modalCheckout.href = waUrl;
 
     packageOverlay.classList.add('active');
@@ -705,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const encodedText = encodeURIComponent(waText);
 
             // IMPORTANT: remove spaces, dashes, or symbols from phone number
-            const waNumber = "6285166194191";
+            const waNumber = "6285692498462";
 
             // Final WhatsApp URL
             const waUrl = `https://wa.me/${waNumber}?text=${encodedText}`;

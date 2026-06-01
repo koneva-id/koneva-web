@@ -66,7 +66,7 @@
                         <input id="name" type="text" name="name" value="{{ old('name', $user->name) }}" placeholder="Nama Lengkap" required autofocus autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <input id="organization" type="text" name="organization" value="{{ old('organization', $user->organization) }}" placeholder="Organisasi/Perusahaan (opsional)" autocomplete="organization">
+                        <input id="organization" type="text" name="organization" value="{{ old('organization', $user->organization) }}" placeholder="Nama Usaha" autocomplete="organization">
                     </div>
                     @if (config('services.altcha.enabled'))
                         <div class="form-group" style="margin-top: 0.4rem;">

@@ -53,7 +53,7 @@
                         <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap" required autofocus autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <input id="organization" type="text" name="organization" value="{{ old('organization') }}" placeholder="Organisasi/Perusahaan (opsional)" autocomplete="organization">
+                        <input id="organization" type="text" name="organization" value="{{ old('organization') }}" placeholder="Nama Usaha" autocomplete="organization">
                     </div>
                     <div class="form-group">
                         <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="username">
