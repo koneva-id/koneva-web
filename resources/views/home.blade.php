@@ -315,6 +315,12 @@
                     <button class="client-logo-btn" data-client="kaosgurita">
                         <img src="img/kaosgurita.jpeg" alt="Kaos Gurita" class="client-logo">
                     </button>
+                    <button class="client-logo-btn" data-client="ngeunahnyo">
+                        <img src="img/ngeunahnyo.jpeg" alt="Ngenahnyo Snack" class="client-logo">
+                    </button>
+                    <button class="client-logo-btn" data-client="serdadungemil">
+                        <img src="img/serdadu-ngemil.jpeg" alt="Serdadu Ngemil" class="client-logo">
+                    </button>
                     <!-- <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 3%3C/text%3E%3C/svg%3E" alt="Logo 3" class="client-logo">
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 4%3C/text%3E%3C/svg%3E" alt="Logo 4" class="client-logo">
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Crect width='160' height='80' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%2364748b'%3ELogo 5%3C/text%3E%3C/svg%3E" alt="Logo 5" class="client-logo">

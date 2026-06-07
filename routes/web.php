@@ -44,6 +44,11 @@ Route::get('/portal', function (Request $request) {
     };
 })->middleware(['auth', 'verified'])->name('portal');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/storage/deliverables/{filename}', [\App\Http\Controllers\Admin\DeliverableManagementController::class, 'serveFile'])->name('deliverables.serve-file');
+    Route::get('/public/storage/deliverables/{filename}', [\App\Http\Controllers\Admin\DeliverableManagementController::class, 'serveFile']);
+});
+
 Route::middleware(['auth', 'verified', 'role:client'])->prefix('client')->name('client.')->group(function () {
     Route::get('/dashboard', function (Request $request) {
         $client = $request->user()->clientProfile;
@@ -90,6 +95,38 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::patch('/deliverables/{deliverable}', [DeliverableManagementController::class, 'update'])->name('deliverables.update');
     Route::post('/deliverables/{deliverable}/replace-file', [DeliverableManagementController::class, 'replaceFile'])->name('deliverables.replace-file');
     Route::delete('/deliverables/{deliverable}', [DeliverableManagementController::class, 'destroy'])->name('deliverables.destroy');
+
+    Route::get('/debug-storage', function () {
+        $publicStoragePath = public_path('storage');
+        $targetStoragePath = storage_path('app/public');
+        
+        $result = [];
+        $result[] = "Public path: " . public_path();
+        $result[] = "Storage path: " . storage_path();
+        $result[] = "Public storage exists: " . (file_exists($publicStoragePath) ? 'Yes' : 'No');
+        $result[] = "Is link: " . (is_link($publicStoragePath) ? 'Yes' : 'No');
+        
+        if (is_link($publicStoragePath)) {
+            $result[] = "Link target: " . @readlink($publicStoragePath);
+        }
+        
+        if (file_exists($publicStoragePath) || is_link($publicStoragePath)) {
+            $result[] = "Attempting to delete public/storage symlink so Laravel can handle file requests directly...";
+            if (is_link($publicStoragePath) || is_file($publicStoragePath)) {
+                $deleted = @unlink($publicStoragePath);
+            } else {
+                $deleted = @rmdir($publicStoragePath);
+            }
+            if ($deleted) {
+                $result[] = "Successfully deleted public/storage!";
+            } else {
+                $err = error_get_last();
+                $result[] = "Failed to delete public/storage. Error: " . ($err ? $err['message'] : 'unknown');
+            }
+        }
+        
+        return response()->json($result);
+    })->name('debug-storage');
 });
 
 Route::middleware(['auth', 'verified', 'role:superadmin'])->prefix('superadmin')->name('superadmin.')->group(function () {

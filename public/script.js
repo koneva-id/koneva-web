@@ -66,14 +66,24 @@ const packageDetails = {
 // ── Client Logo Modal ──
 const clientDetails = {
   'bigstamp': {
-    name: 'Bigstamp',
+    name: 'Percetakan Bigstamp',
     logo: 'img/bigstamp.jpg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    description: 'Dipercaya sejak 2005, percetakan stempel asal Bandung yang menghadirkan solusi stempel lengkap, dari stempel kayu klasik hingga stempel modern dan embossed premium. Dikerjakan dengan detail, cepat, and berorientasi pada kepuasan serta kenyamanan pelanggan.'
   },
   'kaosgurita': {
     name: 'Kaos Gurita',
     logo: 'img/kaosgurita.jpeg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    description: 'Kaos khas Bandung yang mengangkat celetukan atau banyol orang Sunda yang relatable, humor sehari-hari, serta kata-kata motivasi dan sindiran lucu yang bikin orang senyum saat membacanya.'
+  },
+  'serdadungemil': {
+    name: 'Serdadu Ngemil',
+    logo: 'img/serdadu-ngemil.jpeg',
+    description: 'Dari gurih yang renyah hingga pedas yang nagih, berbagai camilan favorit seperti basreng, cimol kering, kripca, dan masih banyak lagi siap memanjakan lidah. Aneka snack asal Bekasi ini cocok menemani waktu santai, momen berkumpul, hingga seru-seruan bersama orang-orang tersayang.'
+  },
+  'ngeunahnyo': {
+    name: 'Ngenahnyo Snack',
+    logo: 'img/ngeunahnyo.jpeg',
+    description: 'Keripik pisang lumer asal Garut dengan aneka pilihan rasa, mulai dari stroberi hingga cokelat. Perpaduan kerenyahan keripik dan lelehan rasa yang melimpah menciptakan sensasi yang bikin ketagihan. Cocok jadi teman santai, teman ngobrol, maupun suguhan saat berkumpul bersama orang-orang terdekat.'
   }
 };
 

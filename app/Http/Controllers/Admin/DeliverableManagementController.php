@@ -128,6 +128,9 @@ class DeliverableManagementController extends Controller
         $nextVersion = ((int) $latestVersion) + 1;
 
         $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+        $fileType = $file->getMimeType() ?? $file->getClientMimeType();
+
         $relativePath = $this->storeUploadedFile($file);
 
         if ($relativePath === null) {
@@ -143,8 +146,8 @@ class DeliverableManagementController extends Controller
             'uploaded_by'          => $request->user()->id,
             'title'                => $validated['title'],
             'description'          => $validated['description'] ?? null,
-            'file_name'            => $file->getClientOriginalName(),
-            'file_type'            => $file->getMimeType() ?? $file->getClientMimeType(),
+            'file_name'            => $fileName,
+            'file_type'            => $fileType,
             'storage_path'         => $relativePath,
             'file_url'             => $this->publicUrl($relativePath),
             'version'              => $nextVersion,
@@ -217,6 +220,9 @@ class DeliverableManagementController extends Controller
         ]);
 
         $file        = $request->file('file');
+        $fileName    = $file->getClientOriginalName();
+        $fileType    = $file->getMimeType() ?? $file->getClientMimeType();
+
         $newPath     = $this->storeUploadedFile($file);
 
         if ($newPath === null) {
@@ -227,8 +233,8 @@ class DeliverableManagementController extends Controller
         $this->deleteStoredFile($deliverable->storage_path);
 
         $deliverable->update([
-            'file_name'            => $file->getClientOriginalName(),
-            'file_type'            => $file->getMimeType() ?? $file->getClientMimeType(),
+            'file_name'            => $fileName,
+            'file_type'            => $fileType,
             'storage_path'         => $newPath,
             'file_url'             => $this->publicUrl($newPath),
             'version'              => $deliverable->version + 1,
@@ -271,5 +277,16 @@ class DeliverableManagementController extends Controller
         );
 
         return redirect()->route('admin.deliverables.index')->with('status', 'Deliverable deleted successfully.');
+    }
+
+    public function serveFile(string $filename)
+    {
+        $path = storage_path('app/public/deliverables/' . $filename);
+
+        if (! file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->download($path);
     }
 }
