@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\BrandDna\AttributeExtractor;
+use App\Services\BrandDna\BrandDnaEngine;
+use App\Services\BrandDna\RelationshipMapper;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
@@ -14,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(BrandDnaEngine::class, fn () => new BrandDnaEngine(
+            new AttributeExtractor(),
+            new RelationshipMapper(),
+        ));
     }
 
     /**

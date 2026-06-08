@@ -65,6 +65,19 @@ Route::middleware(['auth', 'verified', 'role:client'])->prefix('client')->name('
     Route::post('/requests', [ClientRequestController::class, 'store'])->name('requests.store');
 
     Route::get('/deliverables', [DeliverableController::class, 'index'])->name('deliverables.index');
+
+    Route::get('/insights', [\App\Http\Controllers\Client\SocialInsightController::class, 'index'])->name('insights.index');
+    Route::get('/insights/ai-status', [\App\Http\Controllers\Client\SocialInsightController::class, 'aiStatus'])->name('insights.ai-status');
+    Route::get('/insights/personalize', [\App\Http\Controllers\Client\SocialInsightController::class, 'showPersonalize'])->name('insights.personalize');
+    Route::post('/insights/personalize', [\App\Http\Controllers\Client\SocialInsightController::class, 'submitPersonalize'])->name('insights.personalize.submit');
+    Route::post('/insights/connect', [\App\Http\Controllers\Client\SocialInsightController::class, 'connect'])->name('insights.connect');
+    Route::post('/insights/industry', [\App\Http\Controllers\Client\SocialInsightController::class, 'updateIndustry'])->name('insights.industry');
+    Route::post('/insights/ai-refresh', [\App\Http\Controllers\Client\SocialInsightController::class, 'refreshAiRecommendations'])->name('insights.ai-refresh');
+    Route::post('/insights/{account}/refresh', [\App\Http\Controllers\Client\SocialInsightController::class, 'refresh'])->name('insights.refresh');
+    Route::post('/insights/{account}/analyze', [\App\Http\Controllers\Client\SocialInsightController::class, 'analyzeAccount'])->name('insights.analyze');
+    Route::patch('/insights/{account}/account-type', [\App\Http\Controllers\Client\SocialInsightController::class, 'updateAccountType'])->name('insights.account-type');
+    Route::get('/insights/{account}/analysis-status', [\App\Http\Controllers\Client\SocialInsightController::class, 'analysisStatus'])->name('insights.analysis-status');
+    Route::delete('/insights/{account}', [\App\Http\Controllers\Client\SocialInsightController::class, 'disconnect'])->name('insights.disconnect');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
