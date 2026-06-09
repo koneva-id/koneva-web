@@ -22,6 +22,7 @@
                     <li><a href="{{ route('client.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('client.requests.index') }}">Requests</a></li>
                     <li><a href="{{ route('client.deliverables.index') }}">Deliverables</a></li>
+                    <li><a href="{{ route('client.insights.index') }}">Insights</a></li>
                     <li><a href="{{ route('profile.settings') }}">Profile</a></li>
                 </ul>
                 <div class="nav-controls">
