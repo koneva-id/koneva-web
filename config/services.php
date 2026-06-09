@@ -36,9 +36,11 @@ return [
     ],
 
     'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URI'),
+        'redirect'      => env('GOOGLE_REDIRECT_URI'),
+        'api_key'       => env('GOOGLE_API_KEY'),
+        'cse_id'        => env('GOOGLE_CSE_ID'),
     ],
 
     'altcha' => [
@@ -47,6 +49,18 @@ return [
         'key_secret' => env('ALTCHA_KEY_SECRET'),
         'cost' => env('ALTCHA_COST', 12000),
         'ttl' => env('ALTCHA_TTL', 300),
+    ],
+
+    'rapidapi' => [
+        'key' => env('RAPIDAPI_KEY'),
+    ],
+
+    'deepseek' => [
+        'key' => env('DEEPSEEK_API_KEY'),
+    ],
+
+    'bing' => [
+        'api_key' => env('BING_API_KEY'),
     ],
 
 ];

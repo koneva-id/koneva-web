@@ -16,7 +16,14 @@ class Client extends Model
         'company_name',
         'phone',
         'industry',
+        'personalization_answers',
+        'personalized_at',
         'status',
+    ];
+
+    protected $casts = [
+        'personalization_answers' => 'array',
+        'personalized_at'         => 'datetime',
     ];
 
     public function user(): BelongsTo
