@@ -44,13 +44,6 @@ class SocialInsightController extends Controller
         $aiRecommendation = null;
         if ($client->personalized_at && config('services.deepseek.key')) {
             $aiRecommendation = $aiService->getRecommendation($client);
-
-            // Auto-refresh in background if expired (non-blocking — runs after response)
-            if ($aiService->isRecommendationExpired($client)) {
-                $logger = new AiProgressLogger($client->id);
-                $logger->start();
-                GenerateAiRecommendationJob::dispatchAfterResponse($client);
-            }
         }
 
         return view('client.insights', [
