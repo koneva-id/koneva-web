@@ -1199,7 +1199,7 @@
                                             @endforeach
                                         </div>
                                         <div style="text-align:center;">
-                                            <a href="{{ route('client.requests.create') }}"
+                                            <a href="{{ route('client.requests.index') }}"
                                                style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:12px;padding:0.85rem 2rem;font-size:0.95rem;font-weight:700;text-decoration:none;transition:opacity 0.15s;"
                                                onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                                                 <i class="fas fa-comments"></i> Konsultasi Lebih Lanjut Sekarang
