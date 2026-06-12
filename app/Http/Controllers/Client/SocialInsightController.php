@@ -110,7 +110,8 @@ class SocialInsightController extends Controller
 
         $validated = $request->validate([
             'company_name'    => ['required', 'string', 'max:100'],
-            'industry'        => ['required', 'string', 'in:food,fashion,beauty,technology,education,health,property,retail,finance,creative'],
+            'industry'        => ['required', 'string', 'in:food,fashion,beauty,technology,education,health,property,retail,finance,creative,other'],
+            'industry_custom' => ['nullable', 'string', 'max:100'],
             'description'     => ['required', 'string', 'max:500'],
             'target_audience' => ['required', 'string', 'max:300'],
             'goals'           => ['nullable', 'array'],
@@ -139,14 +140,20 @@ class SocialInsightController extends Controller
             'customer_persona'       => ['nullable', 'string', 'max:500'],
             // Bisnis & keuangan
             'monthly_revenue'          => ['nullable', 'string', 'max:20'],
+            'marketing_budget'         => ['nullable', 'string', 'max:20'],
             'competitors'              => ['nullable', 'string', 'max:300'],
             'unique_value'             => ['nullable', 'string', 'max:300'],
             'customer_testimonials'    => ['nullable', 'string', 'max:500'],
         ]);
 
+        // Resolve custom industry
+        $industry = $validated['industry'] === 'other'
+            ? ($request->input('industry_custom') ?: 'other')
+            : $validated['industry'];
+
         $answers = [
             'company_name'          => $validated['company_name'],
-            'industry'              => $validated['industry'],
+            'industry'              => $industry,
             'description'           => $validated['description'],
             'target_audience'       => $validated['target_audience'],
             'goals'                 => $validated['goals'] ?? [],
@@ -173,6 +180,7 @@ class SocialInsightController extends Controller
             'customer_persona'       => $validated['customer_persona'] ?? '',
             // Bisnis & keuangan
             'monthly_revenue'          => $validated['monthly_revenue'] ?? '',
+            'marketing_budget'         => $validated['marketing_budget'] ?? '',
             'competitors'              => $validated['competitors'] ?? '',
             'unique_value'             => $validated['unique_value'] ?? '',
             'customer_testimonials'    => $validated['customer_testimonials'] ?? '',
@@ -180,7 +188,7 @@ class SocialInsightController extends Controller
 
         $client->update([
             'company_name'            => $validated['company_name'],
-            'industry'                => $validated['industry'],
+            'industry'                => $industry,
             'personalization_answers' => $answers,
             'personalized_at'         => now(),
         ]);

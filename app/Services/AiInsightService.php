@@ -654,7 +654,8 @@ PROMPT;
         $custPersona      = $answers['customer_persona'] ?? '';
 
         // Revenue
-        $monthlyRevenue = $answers['monthly_revenue'] ?? '';
+        $monthlyRevenue    = $answers['monthly_revenue'] ?? '';
+        $marketingBudget   = $answers['marketing_budget'] ?? '';
 
         // User profile data (from linked account)
         $client->loadMissing('user');
@@ -785,9 +786,13 @@ PROMPT;
             if ($custPersona)      $customerSection .= "\nCustomer Persona: {$custPersona}";
         }
 
-        $revenueSection = $monthlyRevenue
-            ? "\n\nEstimasi Omzet/Bulan: {$monthlyRevenue} (gunakan untuk menentukan rekomendasi budget iklan Meta/TikTok yang realistis)"
-            : '';
+        $revenueSection = '';
+        if ($monthlyRevenue || $marketingBudget) {
+            $revenueSection = "\n\nData Keuangan:";
+            if ($monthlyRevenue)  $revenueSection .= "\nEstimasi Omzet/Bulan: {$monthlyRevenue}";
+            if ($marketingBudget) $revenueSection .= "\nBiaya Marketing yang tersedia/Bulan: {$marketingBudget} (gunakan ini sebagai acuan utama rekomendasi budget iklan, BUKAN hitung persentase dari omzet)";
+            if (!$marketingBudget && $monthlyRevenue) $revenueSection .= " (gunakan untuk menentukan rekomendasi budget iklan yang realistis)";
+        }
 
         // Build DNA context block
         $dnaContextBlock = '';
@@ -883,7 +888,7 @@ Aturan wajib:
 - main_problem dimulai "Masalah utama dari brand ini adalah ..."
 - solution dimulai "Masalah tersebut dapat diatasi jika ..."
 - instagram_accounts dan tiktok_accounts WAJIB array kosong []
-- content_ideas TEPAT 4 dengan variasi: ide #1 = "video", ide #2 = "carousel", ide #3 = "foto", ide #4 = "reel"
+- content_ideas TEPAT 6 dengan variasi: ide #1 = "video", ide #2 = "carousel", ide #3 = "foto", ide #4 = "reel", ide #5 = "video", ide #6 = "carousel"
 - search_keyword HANYA diisi untuk "video" dan "reel"
 - ad_budget_recommendation WAJIB diisi — jika omzet tidak diketahui tetap berikan estimasi berdasarkan skala bisnis
 - Semua teks dalam Bahasa Indonesia
