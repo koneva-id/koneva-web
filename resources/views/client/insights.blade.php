@@ -998,12 +998,13 @@
                                                             </span>
                                                         @endif
                                                     </div>
+                                                    @if (!empty($ttUsername))
                                                     <a href="{{ $ttUrl }}" target="_blank" rel="noopener noreferrer"
                                                        style="margin-left:auto;font-size:0.75rem;color:#6366f1;text-decoration:none;white-space:nowrap;flex-shrink:0;align-self:flex-start;">
                                                         Lihat <i class="fas fa-external-link-alt" style="font-size:0.65rem;"></i>
                                                     </a>
+                                                    @endif
                                                 </div>
-                                                @endif
                                                 {{-- Reference posts --}}
                                                 @if (!empty($acc['reference_posts']))
                                                     <div style="padding:0.6rem 1rem 0.85rem;">
