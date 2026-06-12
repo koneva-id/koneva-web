@@ -221,7 +221,7 @@
                     <div class="step-header">
                         <div class="step-icon"><i class="fas fa-magic"></i></div>
                         <h1>Personalisasi <span style="color:#6366f1;">Bisnis Anda</span></h1>
-                        <p>Semakin lengkap informasi yang Anda isi, semakin akurat diagnosis dan rekomendasi strategi konten dari AI.</p>
+                        <p>Semakin lengkap informasi yang Anda isi, semakin akurat diagnosis dan rekomendasi strategi konten yang dapat diberikan.</p>
                     </div>
 
                     @if ($errors->any())
@@ -254,9 +254,9 @@
                                     @error('company_name')<p class="error-msg">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" x-data="{ industryVal: '{{ old('industry', $client->industry) }}' }">
                                     <label for="industry">Industri / Kategori Bisnis</label>
-                                    <select id="industry" name="industry" required>
+                                    <select id="industry" name="industry" required x-model="industryVal">
                                         <option value="">-- Pilih industri --</option>
                                         @foreach ([
                                             'food'       => 'Food & Beverage (Kuliner)',
@@ -269,6 +269,7 @@
                                             'retail'     => 'Retail & Online Shop',
                                             'finance'    => 'Finance & Investment',
                                             'creative'   => 'Creative & Digital Agency',
+                                            'other'      => 'Lainnya...',
                                         ] as $val => $label)
                                             <option value="{{ $val }}"
                                                 @selected(old('industry', $client->industry) === $val)>
@@ -276,6 +277,13 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    <input type="text" name="industry_custom"
+                                           x-show="industryVal === 'other'"
+                                           placeholder="Tuliskan industri Anda..."
+                                           value="{{ old('industry_custom', '') }}"
+                                           maxlength="100"
+                                           style="margin-top:0.5rem;"
+                                           x-bind:required="industryVal === 'other'">
                                     @error('industry')<p class="error-msg">{{ $message }}</p>@enderror
                                 </div>
                             </div>
@@ -296,7 +304,7 @@
                             <div class="form-section-title"><i class="fas fa-box-open" style="margin-right:0.4rem;"></i>Produk Unggulan</div>
 
                             <div class="form-group">
-                                <label for="product_featured">Produk / Layanan Unggulan Anda</label>
+                                <label for="product_featured">Produk Unggulan Anda</label>
                                 <textarea id="product_featured" name="product_featured"
                                           placeholder="Contoh: Jersey futsal custom full-print, bahan drifit premium. Bisa pesan dari 1 pcs, ready dalam 7 hari."
                                           maxlength="400" rows="3">{{ old('product_featured', $pa['product_featured'] ?? '') }}</textarea>
@@ -304,7 +312,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="product_usp">USP — Unique Selling Point</label>
+                                <label for="product_usp">USP (Unique Selling Point)</label>
                                 <textarea id="product_usp" name="product_usp"
                                           placeholder="Contoh: Satu-satunya toko jersey di kota ini yang bisa custom 1 pcs tanpa minimum order, dengan desainer in-house."
                                           maxlength="300" rows="2">{{ old('product_usp', $pa['product_usp'] ?? '') }}</textarea>
@@ -312,7 +320,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="product_advantages">Kelebihan Produk Anda</label>
+                                <label for="product_advantages">Kelebihan Produk</label>
                                 <textarea id="product_advantages" name="product_advantages"
                                           placeholder="Contoh: Kualitas bahan terjamin, harga lebih terjangkau dari brand lain, pengiriman cepat, after-sales service bagus."
                                           maxlength="300" rows="2">{{ old('product_advantages', $pa['product_advantages'] ?? '') }}</textarea>
@@ -353,14 +361,14 @@
                         {{-- SECTION 3: PROFIL OWNER                               --}}
                         {{-- ═══════════════════════════════════════════════════════ --}}
                         <div class="form-section">
-                            <div class="form-section-title"><i class="fas fa-user-tie" style="margin-right:0.4rem;"></i>Profil Owner</div>
+                            <div class="form-section-title"><i class="fas fa-user-tie" style="margin-right:0.4rem;"></i>Profile Pemilik Bisnis</div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Gender Owner</label>
-                                    <div class="radio-grid" style="grid-template-columns:repeat(3,1fr);">
+                                    <div class="radio-grid" style="grid-template-columns:repeat(2,1fr);">
                                         @php $savedGender = old('owner_gender', $pa['owner_gender'] ?? ''); @endphp
-                                        @foreach (['Pria', 'Wanita', 'Lainnya'] as $g)
+                                        @foreach (['Pria', 'Wanita'] as $g)
                                             <label class="radio-item">
                                                 <input type="radio" name="owner_gender" value="{{ $g }}"
                                                        @checked($savedGender === $g)>
@@ -395,7 +403,7 @@
                                 <textarea id="owner_personality" name="owner_personality"
                                           placeholder="Contoh: Orangnya ramah, suka ngobrol, perfeksionis soal kualitas produk, lebih suka kerja di balik layar daripada tampil di depan kamera."
                                           maxlength="400" rows="3">{{ old('owner_personality', $pa['owner_personality'] ?? '') }}</textarea>
-                                <p class="form-hint">Deskripsikan kepribadian owner secara jujur — ini membantu AI menyesuaikan gaya konten yang natural.</p>
+                                <p class="form-hint">Deskripsikan kepribadian owner secara jujur — ini membantu menyesuaikan gaya konten yang natural.</p>
                             </div>
 
                             <div class="form-group">
@@ -456,6 +464,10 @@
                                 @error('target_audience')<p class="error-msg">{{ $message }}</p>@enderror
                             </div>
 
+                            <div style="display:inline-flex;align-items:center;gap:0.3rem;background:rgba(14,165,233,0.1);color:#0369a1;border-radius:6px;padding:0.25rem 0.65rem;font-size:0.72rem;font-weight:600;margin-bottom:0.75rem;">
+                                <i class="fas fa-comment-dots"></i> Sudut pandang pelanggan — jawab berdasarkan apa yang pelanggan rasakan
+                            </div>
+
                             <div class="form-group">
                                 <label for="customer_buy_reason">Mengapa Customer Pertama Kali Membeli?</label>
                                 <textarea id="customer_buy_reason" name="customer_buy_reason"
@@ -480,12 +492,14 @@
                                 <p class="form-hint">Pain point atau kebutuhan mendasar apa yang produk Anda selesaikan?</p>
                             </div>
 
+                            <hr style="border:none;border-top:1px solid var(--border,#e5e7eb);margin:0.75rem 0;">
+
                             <div class="form-group">
                                 <label for="customer_persona">Customer Persona Lengkap <span class="opt">(opsional)</span></label>
                                 <textarea id="customer_persona" name="customer_persona"
                                           placeholder="Contoh: Budi, 22 tahun, mahasiswa, suka futsal 2x seminggu dengan teman kampus. Budget beli jersey maks 150rb. Sering scroll TikTok malam hari, percaya rekomendasi dari konten creator olahraga."
                                           maxlength="500" rows="3">{{ old('customer_persona', $pa['customer_persona'] ?? '') }}</textarea>
-                                <p class="form-hint">Buat 1 karakter fiktif yang mewakili pelanggan ideal Anda — nama, usia, pekerjaan, kebiasaan, dan cara mereka menemukan produk Anda.</p>
+                                <p class="form-hint">Buat 1 karakter seperti yang mewakili pelanggan Anda — nama, usia, pekerjaan, kebiasaan, dan cara mereka menemukan produk Anda.</p>
                             </div>
                         </div>
 
@@ -504,7 +518,7 @@
                                         'penjualan'       => 'Tingkatkan Penjualan',
                                         'engagement'      => 'Bangun Komunitas',
                                         'edukasi'         => 'Edukasi Audiens',
-                                        'traffic'         => 'Drive Traffic Website',
+                                        'traffic'         => 'Arahkan ke Toko / Website',
                                         'rekrutmen'       => 'Rekrutmen / HR',
                                     ] as $val => $label)
                                         <label class="check-item">
@@ -544,7 +558,6 @@
                                         'informatif'   => 'Informatif / Edukatif',
                                         'entertaining' => 'Hiburan / Fun',
                                         'inspiratif'   => 'Inspiratif',
-                                        'promotional'  => 'Promosi / Sales',
                                         'storytelling' => 'Storytelling',
                                     ] as $val => $label)
                                         <label class="radio-item">
@@ -583,7 +596,29 @@
                                         </label>
                                     @endforeach
                                 </div>
-                                <p class="form-hint"><i class="fas fa-shield-alt" style="color:#6366f1;margin-right:0.2rem;"></i>Data ini bersifat rahasia dan hanya digunakan untuk menentukan rekomendasi budget iklan Meta/TikTok yang realistis.</p>
+                                <p class="form-hint"><i class="fas fa-shield-alt" style="color:#6366f1;margin-right:0.2rem;"></i>Data ini bersifat rahasia dan hanya digunakan untuk menentukan rekomendasi budget iklan yang realistis.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Estimasi Biaya Marketing per Bulan <span class="opt">(opsional)</span></label>
+                                <div class="revenue-options">
+                                    @php $savedMarketing = old('marketing_budget', $pa['marketing_budget'] ?? ''); @endphp
+                                    @foreach ([
+                                        '<500rb'     => '< Rp 500 ribu',
+                                        '500rb-1jt'  => 'Rp 500rb–1 juta',
+                                        '1-3jt'      => 'Rp 1–3 juta',
+                                        '3-5jt'      => 'Rp 3–5 juta',
+                                        '5-10jt'     => 'Rp 5–10 juta',
+                                        '>10jt'      => '> Rp 10 juta',
+                                    ] as $val => $label)
+                                        <label class="radio-item">
+                                            <input type="radio" name="marketing_budget" value="{{ $val }}"
+                                                   @checked($savedMarketing === $val)>
+                                            {{ $label }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <p class="form-hint">Biaya yang sudah atau bersedia Anda alokasikan untuk iklan / konten per bulan.</p>
                             </div>
 
                             <div class="form-group">
@@ -610,9 +645,9 @@
                         </div>
 
                         <div class="submit-bar">
-                            <p><i class="fas fa-robot" style="color:#6366f1;margin-right:0.3rem;"></i>AI akan menganalisis semua jawaban Anda dan membuat diagnosis brand + rekomendasi strategi konten.</p>
+                            <p><i class="fas fa-chart-bar" style="color:#6366f1;margin-right:0.3rem;"></i>Sistem akan menganalisis semua jawaban Anda melalui metode khusus agar kami dapat membuatkan rekomendasi strategi konten terakurat.</p>
                             <button type="submit" class="btn-primary" id="submitBtn">
-                                <i class="fas fa-magic"></i> Buat Rekomendasi AI
+                                <i class="fas fa-play"></i> Mulai Analisis
                             </button>
                         </div>
                     </form>

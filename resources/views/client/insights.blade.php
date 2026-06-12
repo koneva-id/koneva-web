@@ -279,22 +279,6 @@
                                     @csrf
                                     <button type="submit" class="nav-auth-link" style="font-size:0.78rem;padding:0.3rem 0.7rem;"><i class="fas fa-sync-alt"></i> Refresh</button>
                                 </form>
-                                <form method="POST" action="{{ route('client.insights.analyze', $account) }}" style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="nav-auth-link" style="font-size:0.78rem;padding:0.3rem 0.7rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);"><i class="fas fa-brain"></i> {{ $analysis ? 'Analisis Ulang' : 'Analisis AI' }}</button>
-                                </form>
-                                <form method="POST" action="{{ route('client.insights.account-type', $account) }}" style="display:inline;">
-                                    @csrf @method('PATCH')
-                                    <label style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.75rem;color:var(--text-light);cursor:pointer;" title="Tandai sebagai akun bisnis agar postingan dipakai untuk diagnosis AI">
-                                        <input type="checkbox" name="is_business_account" value="1"
-                                               onchange="this.form.submit()"
-                                               {{ $account->is_business_account ? 'checked' : '' }}
-                                               style="accent-color:#6366f1;width:13px;height:13px;">
-                                        <span style="color:{{ $account->is_business_account ? '#6366f1' : '#9ca3af' }};">
-                                            {{ $account->is_business_account ? 'Akun bisnis' : 'Akun personal' }}
-                                        </span>
-                                    </label>
-                                </form>
                                 <form method="POST" action="{{ route('client.insights.disconnect', $account) }}" style="display:inline;">
                                     @csrf @method('DELETE')
                                     <button type="submit" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.78rem;"><i class="fas fa-unlink"></i> Putus</button>
@@ -440,11 +424,7 @@
                             </select>
                             <input type="text" name="username" placeholder="username (tanpa @)"
                                    pattern="[a-zA-Z0-9._]+" maxlength="60" required value="{{ old('username') }}">
-                            <label style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--text-light);cursor:pointer;white-space:nowrap;">
-                                <input type="checkbox" name="is_business_account" value="1" checked
-                                       style="width:14px;height:14px;accent-color:#6366f1;">
-                                Akun bisnis
-                            </label>
+                            <input type="hidden" name="is_business_account" value="1">
                             <button type="submit" class="nav-auth-link"><i class="fas fa-plug"></i> Hubungkan</button>
                         </form>
                         @error('username')
@@ -462,7 +442,7 @@
                 <div class="portal-card" style="margin-bottom:1.5rem;">
                     <h3 style="margin:0 0 0.4rem;">Industri Bisnis Anda</h3>
                     <p style="font-size:0.85rem;color:var(--text-light);margin:0 0 0.75rem;">
-                        Digunakan untuk menemukan akun TikTok serupa di bidang yang sama.
+                        Digunakan untuk menemukan akun social media serupa di bidang yang sama.
                     </p>
                     <form method="POST" action="{{ route('client.insights.industry') }}" class="industry-form">
                         @csrf
@@ -634,6 +614,10 @@
                                     $pc = $dnaColors[$primaryKey] ?? $dnaColors['craftsmanship'];
                                 @endphp
                                 <div style="border:2px solid {{ $pc['border'] }};background:{{ $pc['bg'] }};border-radius:16px;padding:1.3rem 1.4rem;margin-bottom:1.5rem;">
+                                    {{-- DNA Brief Explanation --}}
+                                    <p style="font-size:0.82rem;color:{{ $pc['text'] }};opacity:0.75;margin:0 0 1rem;line-height:1.55;border-bottom:1px solid {{ $pc['border'] }};padding-bottom:0.85rem;">
+                                        <strong>DNA Brand</strong> adalah identitas karakter bisnis yang dianalisis oleh Koneva Scoring Engine berdasarkan data profil owner, produk, dan pelanggan yang Anda isi. DNA ini menjadi dasar seluruh rekomendasi strategi konten berikut.
+                                    </p>
                                     {{-- Header --}}
                                     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.1rem;">
                                         <div>
@@ -949,12 +933,6 @@
                                                         <i class="fab fa-instagram" style="font-size:0.7rem;"></i> Lihat
                                                     </a>
                                                 </div>
-                                                {{-- Why follow --}}
-                                                @if (!empty($acc['why_follow']))
-                                                    <div style="padding:0.7rem 1rem 0.5rem;font-size:0.82rem;color:var(--text-light);line-height:1.5;border-bottom:1px solid var(--border,#e5e7eb);">
-                                                        {{ $acc['why_follow'] }}
-                                                    </div>
-                                                @endif
                                                 {{-- Reference posts --}}
                                                 @if (!empty($acc['reference_posts']))
                                                     <div style="padding:0.6rem 1rem 0.85rem;">
@@ -1025,11 +1003,6 @@
                                                         Lihat <i class="fas fa-external-link-alt" style="font-size:0.65rem;"></i>
                                                     </a>
                                                 </div>
-                                                {{-- Why follow --}}
-                                                @if (!empty($acc['why_follow']))
-                                                    <div style="padding:0.7rem 1rem 0.5rem;font-size:0.82rem;color:var(--text-light);line-height:1.5;border-bottom:1px solid var(--border,#e5e7eb);">
-                                                        {{ $acc['why_follow'] }}
-                                                    </div>
                                                 @endif
                                                 {{-- Reference posts --}}
                                                 @if (!empty($acc['reference_posts']))
@@ -1056,12 +1029,14 @@
                             {{-- ④ Content Ideas --}}
                             @if (!empty($aiRecommendation['content_ideas']))
                                 <div>
-                                    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.85rem;">
-                                        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(99,102,241,0.15);color:#6366f1;font-size:0.85rem;">
+                                    <div style="display:flex;align-items:flex-start;gap:0.5rem;margin-bottom:0.35rem;">
+                                        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(99,102,241,0.15);color:#6366f1;font-size:0.85rem;flex-shrink:0;margin-top:0.1rem;">
                                             <i class="fas fa-pen-nib"></i>
                                         </span>
-                                        <span style="font-weight:700;font-size:1rem;">4 Ide Konten</span>
-                                        <span style="font-size:0.78rem;color:var(--text-light);">untuk dicoba</span>
+                                        <div>
+                                            <div style="font-weight:700;font-size:1rem;">{{ count($aiRecommendation['content_ideas']) }} Strategi Konten</div>
+                                            <div style="font-size:0.78rem;color:var(--text-light);margin-top:0.1rem;">berikut merupakan hasil dari diagnosis sistem <span style="font-style:italic;">(rekomendasi konten)</span></div>
+                                        </div>
                                     </div>
                                     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
                                         @foreach ($aiRecommendation['content_ideas'] as $idea)
@@ -1169,6 +1144,66 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                    </div>
+
+                                    {{-- Rekomendasi Paket Koneva --}}
+                                    <div style="margin-top:2rem;padding-top:1.5rem;border-top:2px solid rgba(99,102,241,0.15);">
+                                        <div style="text-align:center;margin-bottom:1.25rem;">
+                                            <p style="font-size:0.85rem;color:var(--text-light);margin:0 0 0.35rem;">Untuk membantu implementasi strategi yang direkomendasikan, berikut paket layanan yang paling sesuai dengan kebutuhan bisnis Anda</p>
+                                        </div>
+                                        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:1.25rem;">
+                                            @php
+                                                $primaryDna = $aiRecommendation['brand_dna']['primary_dna'] ?? '';
+                                                $packages = [
+                                                    [
+                                                        'name'        => 'Starter Content',
+                                                        'desc'        => 'Cocok untuk bisnis yang baru membangun kehadiran di media sosial.',
+                                                        'items'       => ['4 konten/bulan', 'Desain feed Instagram', 'Caption + hashtag', 'Konsultasi 1x'],
+                                                        'recommended' => in_array($primaryDna, ['personal_connection', 'community', 'local_pride']),
+                                                        'color'       => '#6366f1',
+                                                    ],
+                                                    [
+                                                        'name'        => 'Growth Package',
+                                                        'desc'        => 'Untuk bisnis yang ingin konsisten dan meningkatkan engagement.',
+                                                        'items'       => ['12 konten/bulan', 'Feed + Reels/TikTok', 'Caption + strategi hashtag', 'Konsultasi 2x', 'Laporan performa'],
+                                                        'recommended' => in_array($primaryDna, ['authority', 'craftsmanship', 'transformation', 'value_driven']),
+                                                        'color'       => '#8b5cf6',
+                                                    ],
+                                                    [
+                                                        'name'        => 'Brand Accelerator',
+                                                        'desc'        => 'Paket lengkap untuk brand yang siap scale up dan ekspansi.',
+                                                        'items'       => ['20 konten/bulan', 'Multi-platform (IG + TikTok)', 'Video script + hook', 'Konsultasi mingguan', 'Ads management', 'Laporan bulanan'],
+                                                        'recommended' => in_array($primaryDna, ['innovation', 'lifestyle', 'efficiency']),
+                                                        'color'       => '#ec4899',
+                                                    ],
+                                                ];
+                                            @endphp
+                                            @foreach ($packages as $pkg)
+                                                <div style="border:2px solid {{ $pkg['recommended'] ? $pkg['color'] : 'var(--border,#e5e7eb)' }};border-radius:14px;padding:1.1rem 1.2rem;position:relative;background:{{ $pkg['recommended'] ? 'rgba('.($pkg['color'] === '#6366f1' ? '99,102,241' : ($pkg['color'] === '#8b5cf6' ? '139,92,246' : '236,72,153')).',0.04)' : 'var(--card-bg,#fff)' }};">
+                                                    @if ($pkg['recommended'])
+                                                        <div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:{{ $pkg['color'] }};color:#fff;font-size:0.68rem;font-weight:700;padding:0.2rem 0.75rem;border-radius:20px;white-space:nowrap;">
+                                                            ✦ Direkomendasikan
+                                                        </div>
+                                                    @endif
+                                                    <div style="font-weight:700;font-size:1rem;color:{{ $pkg['recommended'] ? $pkg['color'] : 'var(--text)' }};margin-bottom:0.3rem;">{{ $pkg['name'] }}</div>
+                                                    <p style="font-size:0.78rem;color:var(--text-light);margin:0 0 0.75rem;line-height:1.45;">{{ $pkg['desc'] }}</p>
+                                                    <ul style="margin:0;padding-left:1.1rem;list-style:none;">
+                                                        @foreach ($pkg['items'] as $item)
+                                                            <li style="font-size:0.8rem;color:var(--text);margin-bottom:0.2rem;padding-left:0;display:flex;align-items:center;gap:0.4rem;">
+                                                                <i class="fas fa-check" style="color:{{ $pkg['color'] }};font-size:0.65rem;flex-shrink:0;"></i>{{ $item }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div style="text-align:center;">
+                                            <a href="{{ route('client.requests.create') }}"
+                                               style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:12px;padding:0.85rem 2rem;font-size:0.95rem;font-weight:700;text-decoration:none;transition:opacity 0.15s;"
+                                               onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                                                <i class="fas fa-comments"></i> Konsultasi Lebih Lanjut Sekarang
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             @endif
